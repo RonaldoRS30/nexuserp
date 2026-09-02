@@ -1,0 +1,52 @@
+import { DashboardMockup } from '../components/DashboardMockup';
+
+export function Hero() {
+  return (
+    <section id="inicio" className="relative overflow-hidden border-b border-line">
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-surface-muted lg:block" />
+      <div className="mx-auto grid max-w-content items-center gap-12 px-5 py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16 lg:px-8 lg:py-24">
+        <div className="reveal">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Software empresarial</p>
+          <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-ink md:text-5xl">
+            Software que se adapta a tu negocio.
+          </h1>
+          <p className="mt-5 max-w-lg text-lg leading-8 text-ink-muted">
+            Desarrollamos sistemas de facturación y soluciones web a medida para optimizar los procesos de tu
+            empresa.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#contacto"
+              className="inline-flex items-center justify-center rounded-sm bg-brand px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#125890]"
+            >
+              Solicitar una cotización
+            </a>
+            <a
+              href="#soluciones"
+              className="inline-flex items-center justify-center rounded-sm border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-brand hover:text-brand"
+            >
+              Ver soluciones
+            </a>
+          </div>
+          <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-line pt-6">
+            <div>
+              <dt className="text-xs text-ink-muted">Especialidad</dt>
+              <dd className="mt-1 text-sm font-medium">Facturación y ERP</dd>
+            </div>
+            <div>
+              <dt className="text-xs text-ink-muted">Enfoque</dt>
+              <dd className="mt-1 text-sm font-medium">Procesos reales</dd>
+            </div>
+            <div>
+              <dt className="text-xs text-ink-muted">Modelo</dt>
+              <dd className="mt-1 text-sm font-medium">A medida</dd>
+            </div>
+          </dl>
+        </div>
+        <div className="reveal reveal-delay-2">
+          <DashboardMockup />
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,50 @@
+const reasons = [
+  {
+    title: 'Desarrollo a medida',
+    text: 'El sistema se adapta a tus procesos.',
+  },
+  {
+    title: 'Arquitectura escalable',
+    text: 'Construimos soluciones preparadas para crecer.',
+  },
+  {
+    title: 'Enfoque empresarial',
+    text: 'Analizamos el proceso antes de desarrollar.',
+  },
+  {
+    title: 'Tecnología moderna',
+    text: 'Utilizamos herramientas actuales para crear soluciones eficientes.',
+  },
+  {
+    title: 'Soporte',
+    text: 'Acompañamos la solución después de su implementación.',
+  },
+];
+
+export function WhyNexus() {
+  return (
+    <section id="nosotros" className="border-y border-line bg-surface-muted px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-content gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Por qué NexusERP</p>
+          <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Construimos el sistema alrededor de su operación</h2>
+          <p className="mt-4 text-base leading-7 text-ink-muted">
+            Trabajamos con empresas que necesitan un sistema estable, entendible para su equipo y alineado con
+            la forma en que ya operan.
+          </p>
+        </div>
+        <ol className="divide-y divide-line border-y border-line bg-white">
+          {reasons.map((item, index) => (
+            <li key={item.title} className="grid grid-cols-[72px_1fr] gap-4 px-5 py-5">
+              <span className="font-display text-sm text-ink-muted">0{index + 1}</span>
+              <div>
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="mt-1 text-sm text-ink-muted">{item.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
