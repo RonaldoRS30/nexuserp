@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Cable, FileText, LifeBuoy, Monitor, RefreshCw, Workflow } from 'lucide-react';
 import { SectionHeading } from '../components/SectionHeading';
+import { CoverImage } from '../components/CoverImage';
+import { images } from '../assets/images';
 
 const services = [
   {
@@ -61,7 +63,14 @@ export function Services() {
           description="Cada servicio responde a un problema operativo concreto. El alcance se define con el proceso de tu empresa, no con un paquete cerrado."
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-5">
-          <article className="lift rounded-2xl border border-line bg-surface-muted p-8 lg:col-span-2">
+          <article className="lift overflow-hidden rounded-2xl border border-line bg-surface-muted lg:col-span-2">
+            <div className="aspect-[16/10]">
+              <CoverImage
+                src={images.facturacion}
+                alt="Emisión de comprobantes electrónicos y control documental"
+              />
+            </div>
+            <div className="p-8">
             <featured.icon className="h-6 w-6 text-brand" strokeWidth={1.6} />
             <h3 className="mt-5 text-2xl font-semibold">{featured.name}</h3>
             <p className="mt-3 text-sm leading-7 text-ink-muted">{featured.description}</p>
@@ -76,6 +85,7 @@ export function Services() {
             <Link to="/contacto" className="mt-8 inline-block text-sm font-medium text-brand transition-colors duration-ui hover:text-brand-hover">
               Consultar este servicio
             </Link>
+            </div>
           </article>
           <div className="grid gap-6 sm:grid-cols-2 lg:col-span-3">
             {rest.map((service) => (

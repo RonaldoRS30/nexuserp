@@ -1,8 +1,12 @@
 import { SectionHeading } from '../components/SectionHeading';
+import { CoverImage } from '../components/CoverImage';
+import { images } from '../assets/images';
 
 const groups = [
   {
     title: 'Operación comercial',
+    image: images.comercial,
+    alt: 'Operación comercial con pedidos, clientes y ventas',
     items: [
       { name: 'Facturación', text: 'Comprobantes, series y control de documentos.' },
       { name: 'Ventas', text: 'Pedidos, cotizaciones y seguimiento comercial.' },
@@ -11,6 +15,8 @@ const groups = [
   },
   {
     title: 'Operación interna',
+    image: images.inventario,
+    alt: 'Control de inventario y productos en almacén',
     items: [
       { name: 'Productos', text: 'Catálogo, precios y categorías.' },
       { name: 'Inventario', text: 'Stock, movimientos y alertas.' },
@@ -19,6 +25,8 @@ const groups = [
   },
   {
     title: 'Control y soporte',
+    image: images.logistica,
+    alt: 'Despacho logístico y control de entregas',
     items: [
       { name: 'Logística', text: 'Despachos y seguimiento de entregas.' },
       { name: 'Reportes', text: 'Indicadores para decidir con datos.' },
@@ -38,7 +46,11 @@ export function Solutions() {
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {groups.map((group, index) => (
-            <div key={group.title} className="bg-white p-6 ring-1 ring-line">
+            <div key={group.title} className="overflow-hidden bg-white ring-1 ring-line">
+              <div className="aspect-[16/10]">
+                <CoverImage src={group.image} alt={group.alt} />
+              </div>
+              <div className="p-6">
               <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand">
                 0{index + 1} / {group.title}
               </p>
@@ -50,6 +62,7 @@ export function Solutions() {
                   </li>
                 ))}
               </ul>
+              </div>
             </div>
           ))}
         </div>

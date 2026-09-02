@@ -1,3 +1,6 @@
+import { CoverImage } from '../components/CoverImage';
+import { images } from '../assets/images';
+
 const reasons = [
   {
     title: 'Desarrollo a medida',
@@ -32,6 +35,14 @@ export function WhyNexus() {
             Trabajamos con empresas que necesitan un sistema estable, entendible para su equipo y alineado con
             la forma en que ya operan.
           </p>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-line">
+            <div className="aspect-[16/10]">
+              <CoverImage
+                src={images.implementacion}
+                alt="Equipo revisando el proceso de la empresa antes de implementar el sistema"
+              />
+            </div>
+          </div>
         </div>
         <ol className="divide-y divide-line border-y border-line bg-white">
           {reasons.map((item, index) => (

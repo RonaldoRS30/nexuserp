@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { CoverImage } from '../components/CoverImage';
+import { images } from '../assets/images';
 
 const paths = [
   {
@@ -6,18 +8,24 @@ const paths = [
     label: 'Servicios',
     title: 'Soluciones tecnológicas para tu empresa',
     text: 'Cada servicio responde a un problema operativo concreto. El alcance se define con el proceso de tu empresa, no con un paquete cerrado.',
+    image: images.facturacion,
+    alt: 'Mesa de trabajo de facturación electrónica con comprobantes y sistema',
   },
   {
     to: '/soluciones',
     label: 'Soluciones',
     title: 'Digitalizamos los procesos que hacen crecer tu negocio',
     text: 'Las soluciones se arman según cómo trabaja tu empresa. Los módulos se combinan, se ajustan o se desarrollan si el proceso lo requiere.',
+    image: images.sistema,
+    alt: 'Pantalla de un sistema empresarial con ventas, facturación e inventario',
   },
   {
     to: '/planes',
     label: 'Planes',
     title: 'Elige el alcance que necesita tu operación',
     text: 'Cada plan agrupa módulos concretos. Si tu proceso no encaja, evaluamos un desarrollo a medida.',
+    image: images.comercial,
+    alt: 'Escritorio comercial con pedidos, catálogo y sistema de ventas',
   },
 ];
 
@@ -32,12 +40,17 @@ export function HomePaths() {
             <Link
               key={item.to}
               to={item.to}
-              className="lift flex flex-col rounded-2xl border border-line bg-surface-muted p-7"
+              className="lift flex flex-col overflow-hidden rounded-2xl border border-line bg-white"
             >
+              <div className="aspect-[16/10] overflow-hidden">
+                <CoverImage src={item.image} alt={item.alt} />
+              </div>
+              <div className="flex flex-1 flex-col p-7">
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand">{item.label}</p>
               <h3 className="mt-4 text-xl font-semibold leading-snug">{item.title}</h3>
               <p className="mt-3 flex-1 text-sm leading-6 text-ink-muted">{item.text}</p>
               <span className="mt-6 text-sm font-medium text-brand">Ver {item.label}</span>
+              </div>
             </Link>
           ))}
         </div>

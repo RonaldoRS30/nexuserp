@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { CoverImage } from '../components/CoverImage';
+import { images } from '../assets/images';
 
 const steps = [
   { n: '01', title: 'Analizamos tu necesidad', text: 'Revisamos el proceso actual, los documentos y los cuellos de botella.' },
@@ -13,13 +15,23 @@ export function CustomSystems() {
   return (
     <section id="a-medida" className="bg-white py-20">
       <div className="page-wrap">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Desarrollo a medida</p>
-          <h2 className="mt-3 text-3xl font-semibold md:text-4xl">¿Necesitas un sistema diferente?</h2>
-          <p className="mt-4 text-lg leading-8 text-ink-muted">
-            No todos los negocios trabajan de la misma manera. Desarrollamos soluciones web adaptadas a los
-            procesos específicos de tu empresa.
-          </p>
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Desarrollo a medida</p>
+            <h2 className="mt-3 text-3xl font-semibold md:text-4xl">¿Necesitas un sistema diferente?</h2>
+            <p className="mt-4 text-lg leading-8 text-ink-muted">
+              No todos los negocios trabajan de la misma manera. Desarrollamos soluciones web adaptadas a los
+              procesos específicos de tu empresa.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-line">
+            <div className="aspect-[16/10]">
+              <CoverImage
+                src={images.sistema}
+                alt="Sistema empresarial desarrollado a la medida de la operación"
+              />
+            </div>
+          </div>
         </div>
         <ol className="mt-12 grid gap-0 border-l border-line md:grid-cols-2 md:border-l-0 md:border-t">
           {steps.map((step) => (
