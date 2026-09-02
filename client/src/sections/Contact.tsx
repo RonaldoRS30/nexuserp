@@ -1,6 +1,7 @@
 import { FormEvent, useState, type ReactNode } from 'react';
 import { submitContact } from '../services/contacts';
-import { serviceOptions, config } from '../config';
+import { serviceOptions } from '../config';
+import { useSiteSettings, whatsappDigits } from '../hooks/useSiteSettings';
 import { ApiError } from '../services/api';
 
 const empty = {
@@ -13,6 +14,8 @@ const empty = {
 };
 
 export function Contact() {
+  const { settings } = useSiteSettings();
+  const whatsapp = whatsappDigits(settings.whatsapp_number);
   const [form, setForm] = useState(empty);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -52,25 +55,25 @@ export function Contact() {
             Indique el servicio o el plan de interés. Con esa información preparamos una respuesta concreta.
           </p>
           <dl className="mt-8 space-y-4 text-sm">
-            {config.contactEmail ? (
+            {settings.contact_email ? (
               <div>
                 <dt className="text-ink-muted">Correo</dt>
-                <dd className="mt-1 font-medium">{config.contactEmail}</dd>
+                <dd className="mt-1 font-medium">{settings.contact_email}</dd>
               </div>
             ) : null}
-            {config.contactPhone ? (
+            {settings.contact_phone ? (
               <div>
                 <dt className="text-ink-muted">Teléfono</dt>
-                <dd className="mt-1 font-medium">{config.contactPhone}</dd>
+                <dd className="mt-1 font-medium">{settings.contact_phone}</dd>
               </div>
             ) : null}
-            {config.whatsappNumber ? (
+            {whatsapp ? (
               <div>
                 <dt className="text-ink-muted">WhatsApp</dt>
                 <dd className="mt-1">
                   <a
                     className="font-medium text-brand hover:underline"
-                    href={`https://wa.me/${config.whatsappNumber}`}
+                    href={`https://wa.me/${whatsapp}`}
                     target="_blank"
                     rel="noreferrer"
                   >

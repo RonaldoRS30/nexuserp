@@ -49,6 +49,15 @@ export interface ContactRow {
   created_at: Date;
 }
 
+export interface SiteSettingsRow {
+  id: number;
+  company_name: string;
+  contact_email: string | null;
+  contact_phone: string | null;
+  whatsapp_number: string | null;
+  updated_at: Date;
+}
+
 export interface AdminRow {
   id: number;
   name: string;

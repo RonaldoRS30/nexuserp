@@ -4,6 +4,7 @@ import dashboardRoutes from './dashboard.routes';
 import { adminContactRouter, publicContactRouter } from './contact.routes';
 import { adminModuleRouter, publicModuleRouter } from './module.routes';
 import { adminPlanRouter, publicPlanRouter } from './plan.routes';
+import { adminSettingsRouter, publicSettingsRouter } from './settings.routes';
 
 const router = Router();
 
@@ -15,10 +16,12 @@ router.use('/auth', authRoutes);
 router.use('/plans', publicPlanRouter);
 router.use('/modules', publicModuleRouter);
 router.use('/contacts', publicContactRouter);
+router.use('/settings', publicSettingsRouter);
 
 router.use('/admin/plans', adminPlanRouter);
 router.use('/admin/modules', adminModuleRouter);
 router.use('/admin/contacts', adminContactRouter);
 router.use('/admin/dashboard', dashboardRoutes);
+router.use('/admin/settings', adminSettingsRouter);
 
 export default router;

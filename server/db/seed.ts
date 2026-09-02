@@ -109,6 +109,34 @@ async function seed() {
     console.log('Planes iniciales creados.');
   }
 
+  await connection.query(`
+    CREATE TABLE IF NOT EXISTS site_settings (
+      id TINYINT UNSIGNED PRIMARY KEY DEFAULT 1,
+      company_name VARCHAR(160) NOT NULL DEFAULT 'NexusERP',
+      contact_email VARCHAR(180) NULL,
+      contact_phone VARCHAR(40) NULL,
+      whatsapp_number VARCHAR(40) NULL,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB
+  `);
+
+  const [settingsCount] = await connection.query<mysql.RowDataPacket[]>(
+    'SELECT COUNT(*) AS total FROM site_settings',
+  );
+  if (!settingsCount[0].total) {
+    await connection.query(
+      `INSERT INTO site_settings (id, company_name, contact_email, contact_phone, whatsapp_number)
+       VALUES (1, :company_name, :contact_email, :contact_phone, :whatsapp_number)`,
+      {
+        company_name: env.site.companyName,
+        contact_email: env.site.contactEmail || null,
+        contact_phone: env.site.contactPhone || null,
+        whatsapp_number: env.site.whatsappNumber || null,
+      },
+    );
+    console.log('Configuración inicial del sitio creada.');
+  }
+
   await connection.end();
   console.log('Seed completado.');
 }

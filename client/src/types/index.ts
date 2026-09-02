@@ -52,6 +52,13 @@ export interface AdminUser {
   email: string;
 }
 
+export interface SiteSettings {
+  company_name: string;
+  contact_email: string | null;
+  contact_phone: string | null;
+  whatsapp_number: string | null;
+}
+
 export interface DashboardStats {
   activePlans: number;
   activeModules: number;

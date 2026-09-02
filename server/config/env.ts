@@ -32,5 +32,11 @@ export const env = {
     email: process.env.ADMIN_EMAIL ?? 'admin@nexuserp.com',
     password: required('ADMIN_PASSWORD', 'NexusERP2026!'),
   },
+  site: {
+    companyName: process.env.VITE_COMPANY_NAME || process.env.COMPANY_NAME || 'NexusERP',
+    contactEmail: process.env.VITE_CONTACT_EMAIL || process.env.CONTACT_EMAIL || '',
+    contactPhone: process.env.VITE_CONTACT_PHONE || process.env.CONTACT_PHONE || '',
+    whatsappNumber: process.env.VITE_WHATSAPP_NUMBER || process.env.WHATSAPP_NUMBER || '',
+  },
   isProd: (process.env.NODE_ENV ?? 'development') === 'production',
 };

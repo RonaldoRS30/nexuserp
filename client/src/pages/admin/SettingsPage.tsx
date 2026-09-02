@@ -1,25 +1,72 @@
-import { FormEvent, useState } from 'react';
-import { config } from '../../config';
+import { FormEvent, useEffect, useState } from 'react';
 import { updatePassword } from '../../services/auth';
+import { fetchPublicSettings, updateSiteSettings } from '../../services/settings';
+import { replaceSiteSettingsCache } from '../../hooks/useSiteSettings';
 import { ApiError } from '../../services/api';
 
+const emptyContact = {
+  company_name: '',
+  contact_email: '',
+  contact_phone: '',
+  whatsapp_number: '',
+};
+
 export function SettingsPage() {
+  const [contact, setContact] = useState(emptyContact);
+  const [contactMessage, setContactMessage] = useState('');
+  const [contactError, setContactError] = useState('');
+  const [savingContact, setSavingContact] = useState(false);
+
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const [passwordMessage, setPasswordMessage] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-  async function onSubmit(event: FormEvent) {
+  useEffect(() => {
+    fetchPublicSettings()
+      .then((data) => {
+        setContact({
+          company_name: data.company_name ?? '',
+          contact_email: data.contact_email ?? '',
+          contact_phone: data.contact_phone ?? '',
+          whatsapp_number: data.whatsapp_number ?? '',
+        });
+      })
+      .catch((err: Error) => setContactError(err.message));
+  }, []);
+
+  async function onSaveContact(event: FormEvent) {
     event.preventDefault();
-    setMessage('');
-    setError('');
+    setContactMessage('');
+    setContactError('');
+    setSavingContact(true);
+    try {
+      const saved = await updateSiteSettings({
+        company_name: contact.company_name.trim(),
+        contact_email: contact.contact_email.trim() || null,
+        contact_phone: contact.contact_phone.trim() || null,
+        whatsapp_number: contact.whatsapp_number.trim() || null,
+      });
+      replaceSiteSettingsCache(saved);
+      setContactMessage('Datos de contacto actualizados. Ya aparecen en el sitio público.');
+    } catch (err) {
+      setContactError(err instanceof ApiError ? err.message : 'No se pudieron guardar los datos');
+    } finally {
+      setSavingContact(false);
+    }
+  }
+
+  async function onChangePassword(event: FormEvent) {
+    event.preventDefault();
+    setPasswordMessage('');
+    setPasswordError('');
     try {
       await updatePassword(currentPassword, newPassword);
-      setMessage('Contraseña actualizada.');
+      setPasswordMessage('Contraseña actualizada.');
       setCurrentPassword('');
       setNewPassword('');
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'No se pudo actualizar la contraseña');
+      setPasswordError(err instanceof ApiError ? err.message : 'No se pudo actualizar la contraseña');
     }
   }
 
@@ -27,16 +74,61 @@ export function SettingsPage() {
     <div className="max-w-2xl">
       <h1 className="text-2xl font-semibold">Configuración</h1>
       <p className="mt-1 text-sm text-ink-muted">
-        Los datos de contacto públicos se configuran con variables de entorno. No se muestran números que no
-        hayan sido definidos.
+        Estos datos se muestran en el formulario de contacto, el pie de página y el botón de WhatsApp.
+        Si un campo queda vacío, no se publica.
       </p>
-      <dl className="mt-8 space-y-3 border border-line bg-white p-6 text-sm">
-        <Row label="Empresa" value={config.companyName} />
-        <Row label="Correo público" value={config.contactEmail || 'No configurado'} />
-        <Row label="Teléfono público" value={config.contactPhone || 'No configurado'} />
-        <Row label="WhatsApp" value={config.whatsappNumber || 'No configurado'} />
-      </dl>
-      <form onSubmit={onSubmit} className="mt-8 space-y-4 border border-line bg-white p-6">
+
+      <form onSubmit={onSaveContact} className="mt-8 space-y-4 border border-line bg-white p-6">
+        <h2 className="font-display text-lg font-semibold">Datos de contacto públicos</h2>
+        <label className="block text-sm font-medium">
+          Empresa
+          <input
+            value={contact.company_name}
+            onChange={(e) => setContact({ ...contact, company_name: e.target.value })}
+            className={inputClass}
+            required
+          />
+        </label>
+        <label className="block text-sm font-medium">
+          Correo público
+          <input
+            type="email"
+            value={contact.contact_email}
+            onChange={(e) => setContact({ ...contact, contact_email: e.target.value })}
+            className={inputClass}
+            placeholder="contacto@nexuserp.com"
+          />
+        </label>
+        <label className="block text-sm font-medium">
+          Teléfono público
+          <input
+            value={contact.contact_phone}
+            onChange={(e) => setContact({ ...contact, contact_phone: e.target.value })}
+            className={inputClass}
+            placeholder="Ej. +51 999 000 000"
+          />
+        </label>
+        <label className="block text-sm font-medium">
+          WhatsApp
+          <input
+            value={contact.whatsapp_number}
+            onChange={(e) => setContact({ ...contact, whatsapp_number: e.target.value })}
+            className={inputClass}
+            placeholder="Código de país + número, ej. 51999000000"
+          />
+        </label>
+        {contactMessage ? <p className="text-sm text-[#027a48]">{contactMessage}</p> : null}
+        {contactError ? <p className="text-sm text-red-700">{contactError}</p> : null}
+        <button
+          type="submit"
+          disabled={savingContact}
+          className="rounded-full bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors duration-ui hover:bg-brand-hover disabled:opacity-60"
+        >
+          {savingContact ? 'Guardando…' : 'Guardar datos'}
+        </button>
+      </form>
+
+      <form onSubmit={onChangePassword} className="mt-8 space-y-4 border border-line bg-white p-6">
         <h2 className="font-display text-lg font-semibold">Cambiar contraseña</h2>
         <label className="block text-sm font-medium">
           Contraseña actual
@@ -59,21 +151,15 @@ export function SettingsPage() {
             required
           />
         </label>
-        {message ? <p className="text-sm text-[#027a48]">{message}</p> : null}
-        {error ? <p className="text-sm text-red-700">{error}</p> : null}
-        <button type="submit" className="rounded-full bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors duration-ui hover:bg-brand-hover">
+        {passwordMessage ? <p className="text-sm text-[#027a48]">{passwordMessage}</p> : null}
+        {passwordError ? <p className="text-sm text-red-700">{passwordError}</p> : null}
+        <button
+          type="submit"
+          className="rounded-full bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors duration-ui hover:bg-brand-hover"
+        >
           Actualizar
         </button>
       </form>
-    </div>
-  );
-}
-
-function Row({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between gap-4">
-      <dt className="text-ink-muted">{label}</dt>
-      <dd className="font-medium">{value}</dd>
     </div>
   );
 }

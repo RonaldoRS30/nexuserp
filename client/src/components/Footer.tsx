@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
 import { config, footerLinks } from '../config';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 
 export function Footer() {
+  const { settings } = useSiteSettings();
+
   return (
     <footer className="mt-auto border-t border-white/10 bg-primary-dark text-white">
       <div className="page-wrap grid gap-10 py-16 md:grid-cols-3">
@@ -44,11 +47,11 @@ export function Footer() {
               </Link>
             </li>
           </ul>
-          {config.contactEmail ? (
-            <p className="mt-6 text-sm text-neutral-400">{config.contactEmail}</p>
+          {settings.contact_email ? (
+            <p className="mt-6 text-sm text-neutral-400">{settings.contact_email}</p>
           ) : null}
-          {config.contactPhone ? (
-            <p className="text-sm text-neutral-400">{config.contactPhone}</p>
+          {settings.contact_phone ? (
+            <p className="text-sm text-neutral-400">{settings.contact_phone}</p>
           ) : null}
         </div>
       </div>

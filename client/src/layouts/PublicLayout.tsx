@@ -7,6 +7,7 @@ import { navLinks } from '../config';
 import { useNavDirection } from '../hooks/useNavDirection';
 import { prefetchPublicModules } from '../hooks/usePublicModules';
 import { prefetchPublicPlans } from '../hooks/usePublicPlans';
+import { prefetchSiteSettings } from '../hooks/useSiteSettings';
 import { useSectionReveal } from '../hooks/useSectionReveal';
 
 const publicOrder = navLinks.map((link) => link.to);
@@ -19,6 +20,7 @@ export function PublicLayout() {
   useEffect(() => {
     prefetchPublicPlans();
     prefetchPublicModules();
+    prefetchSiteSettings();
   }, []);
 
   return (

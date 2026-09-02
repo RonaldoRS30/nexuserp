@@ -1,10 +1,12 @@
 import { MessageCircle } from 'lucide-react';
-import { config } from '../config';
+import { useSiteSettings, whatsappDigits } from '../hooks/useSiteSettings';
 
 export function WhatsAppButton() {
-  if (!config.whatsappNumber) return null;
+  const { settings } = useSiteSettings();
+  const number = whatsappDigits(settings.whatsapp_number);
+  if (!number) return null;
 
-  const href = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(
+  const href = `https://wa.me/${number}?text=${encodeURIComponent(
     'Hola, quisiera solicitar información sobre las soluciones de NexusERP.',
   )}`;
 
