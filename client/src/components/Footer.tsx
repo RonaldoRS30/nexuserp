@@ -8,7 +8,7 @@ export function Footer() {
       <div className="page-wrap grid gap-10 py-16 md:grid-cols-3">
         <div>
           <div className="inline-flex rounded-lg bg-white px-3 py-2">
-            <Logo className="[&_img]:h-9" />
+            <Logo className="[&_img]:h-16" />
           </div>
           <p className="mt-5 text-sm leading-6 text-neutral-400">
             Soluciones de software diseñadas para optimizar procesos y acompañar el crecimiento de las

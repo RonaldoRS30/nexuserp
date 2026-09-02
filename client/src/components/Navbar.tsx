@@ -26,7 +26,7 @@ export function Navbar() {
         scrolled ? 'border-line shadow-nav' : 'border-transparent',
       )}
     >
-      <div className="page-wrap flex h-16 items-center gap-3 sm:gap-5">
+      <div className="page-wrap flex h-24 items-center gap-3 sm:gap-5">
         <Logo className="shrink-0" />
         <nav
           ref={navRef}
