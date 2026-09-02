@@ -13,7 +13,7 @@ export function Logo({ className, to = '/' }: LogoProps) {
       <img
         src={logo}
         alt="NexusERP, innovación para crecer"
-        className="h-10 w-auto md:h-12"
+        className="h-16 w-auto md:h-20"
       />
     </Link>
   );
