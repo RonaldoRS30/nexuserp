@@ -9,10 +9,11 @@ export async function ensureSettingsTable(): Promise<void> {
       company_name VARCHAR(160) NOT NULL DEFAULT 'NexusERP',
       contact_email VARCHAR(180) NULL,
       contact_phone VARCHAR(40) NULL,
-      whatsapp_number VARCHAR(40) NULL,
+      whatsapp_number VARCHAR(255) NULL,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE=InnoDB
   `);
+  await query('ALTER TABLE site_settings MODIFY whatsapp_number VARCHAR(255) NULL');
 
   const rows = await query<Array<{ total: number }>>('SELECT COUNT(*) AS total FROM site_settings');
   if (!rows[0]?.total) {

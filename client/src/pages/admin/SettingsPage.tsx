@@ -109,13 +109,16 @@ export function SettingsPage() {
           />
         </label>
         <label className="block text-sm font-medium">
-          WhatsApp
+          Enlace o número de WhatsApp
           <input
             value={contact.whatsapp_number}
             onChange={(e) => setContact({ ...contact, whatsapp_number: e.target.value })}
             className={inputClass}
-            placeholder="Código de país + número, ej. 51999000000"
+            placeholder="51999000000 o https://wa.me/51999000000"
           />
+          <span className="mt-1 block text-xs font-normal text-ink-muted">
+            Este valor activa el logo de WhatsApp anclado en el sitio. Incluya el código de país.
+          </span>
         </label>
         {contactMessage ? <p className="text-sm text-[#027a48]">{contactMessage}</p> : null}
         {contactError ? <p className="text-sm text-red-700">{contactError}</p> : null}

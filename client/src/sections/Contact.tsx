@@ -1,7 +1,7 @@
 import { FormEvent, useState, type ReactNode } from 'react';
 import { submitContact } from '../services/contacts';
 import { serviceOptions } from '../config';
-import { useSiteSettings, whatsappDigits } from '../hooks/useSiteSettings';
+import { useSiteSettings, resolveWhatsAppHref } from '../hooks/useSiteSettings';
 import { ApiError } from '../services/api';
 
 const empty = {
@@ -15,7 +15,7 @@ const empty = {
 
 export function Contact() {
   const { settings } = useSiteSettings();
-  const whatsapp = whatsappDigits(settings.whatsapp_number);
+  const whatsappHref = resolveWhatsAppHref(settings.whatsapp_number);
   const [form, setForm] = useState(empty);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -67,13 +67,13 @@ export function Contact() {
                 <dd className="mt-1 font-medium">{settings.contact_phone}</dd>
               </div>
             ) : null}
-            {whatsapp ? (
+            {whatsappHref ? (
               <div>
                 <dt className="text-ink-muted">WhatsApp</dt>
                 <dd className="mt-1">
                   <a
                     className="font-medium text-brand hover:underline"
-                    href={`https://wa.me/${whatsapp}`}
+                    href={whatsappHref}
                     target="_blank"
                     rel="noreferrer"
                   >
