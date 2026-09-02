@@ -29,7 +29,7 @@ export function DashboardPage() {
 
 function Stat({ label, value, to }: { label: string; value?: number; to: string }) {
   return (
-    <Link to={to} className="border border-line bg-white p-5 transition-colors hover:border-brand">
+    <Link to={to} className="lift rounded-xl border border-line bg-white p-5 hover:border-brand">
       <p className="text-sm text-ink-muted">{label}</p>
       <p className="mt-3 font-display text-3xl font-semibold">{value ?? '—'}</p>
     </Link>

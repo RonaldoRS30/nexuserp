@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { DashboardMockup } from '../components/DashboardMockup';
 
 export function Hero() {
@@ -15,18 +16,18 @@ export function Hero() {
             empresa.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href="#contacto"
-              className="inline-flex items-center justify-center rounded-sm bg-brand px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#125890]"
+            <Link
+              to="/contacto"
+              className="inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors duration-ui hover:bg-brand-hover"
             >
               Solicitar una cotización
-            </a>
-            <a
-              href="#soluciones"
-              className="inline-flex items-center justify-center rounded-sm border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-brand hover:text-brand"
+            </Link>
+            <Link
+              to="/soluciones"
+              className="inline-flex items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition-colors duration-ui hover:border-brand hover:text-brand"
             >
               Ver soluciones
-            </a>
+            </Link>
           </div>
           <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-line pt-6">
             <div>

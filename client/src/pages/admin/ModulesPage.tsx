@@ -177,7 +177,7 @@ export function ModulesPage() {
           Activo
         </label>
         <div className="mt-5 flex gap-3">
-          <button type="submit" className="rounded-sm bg-brand px-4 py-2 text-sm font-medium text-white">
+          <button type="submit" className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white transition-colors duration-ui hover:bg-brand-hover">
             Guardar
           </button>
           {editingId ? (

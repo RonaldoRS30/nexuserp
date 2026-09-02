@@ -11,6 +11,7 @@ export default {
         brand: {
           DEFAULT: 'var(--color-blue)',
           light: 'var(--color-blue-light)',
+          hover: 'var(--color-blue-hover)',
         },
         surface: {
           DEFAULT: 'var(--color-background)',
@@ -23,15 +24,18 @@ export default {
         line: 'var(--color-border)',
       },
       fontFamily: {
-        sans: ['IBM Plex Sans', 'Segoe UI', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'Segoe UI', 'sans-serif'],
         display: ['Plus Jakarta Sans', 'Segoe UI', 'sans-serif'],
       },
       boxShadow: {
-        panel: '0 1px 2px rgba(38, 52, 71, 0.05), 0 12px 32px rgba(38, 52, 71, 0.08)',
-        nav: '0 1px 0 rgba(38, 52, 71, 0.08)',
+        panel: '0 1px 2px rgba(10, 10, 10, 0.04), 0 16px 40px rgba(10, 10, 10, 0.06)',
+        nav: '0 1px 0 rgba(10, 10, 10, 0.06)',
       },
       maxWidth: {
         content: '72rem',
+      },
+      transitionDuration: {
+        ui: '150ms',
       },
     },
   },

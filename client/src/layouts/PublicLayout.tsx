@@ -1,14 +1,25 @@
+import { Outlet, useLocation } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { WhatsAppButton } from '../components/WhatsAppButton';
-import { Outlet } from 'react-router-dom';
+import { navLinks } from '../config';
+import { useNavDirection } from '../hooks/useNavDirection';
+import { useSectionReveal } from '../hooks/useSectionReveal';
+
+const publicOrder = navLinks.map((link) => link.to);
 
 export function PublicLayout() {
+  const location = useLocation();
+  const direction = useNavDirection(location.pathname, publicOrder);
+  useSectionReveal(location.pathname);
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="flex min-h-screen flex-col bg-surface">
       <Navbar />
-      <main>
-        <Outlet />
+      <main className="page-stage flex-1 overflow-x-hidden bg-surface">
+        <div key={location.pathname} className="page-sheet" data-dir={direction}>
+          <Outlet />
+        </div>
       </main>
       <Footer />
       <WhatsAppButton />

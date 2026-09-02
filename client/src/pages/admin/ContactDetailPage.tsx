@@ -55,7 +55,7 @@ export function ContactDetailPage() {
         </div>
       </dl>
       <div className="mt-6 flex gap-3">
-        <button type="button" onClick={() => void mark()} className="rounded-sm bg-brand px-4 py-2 text-sm text-white">
+        <button type="button" onClick={() => void mark()} className="rounded-full bg-brand px-4 py-2 text-sm text-white transition-colors duration-ui hover:bg-brand-hover">
           {contact.status === 'attended' ? 'Marcar como nueva' : 'Marcar como atendida'}
         </button>
         <button type="button" onClick={() => void remove()} className="text-sm text-red-700">

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { SectionHeading } from '../components/SectionHeading';
 import { usePublicPlans } from '../hooks/usePublicPlans';
@@ -32,14 +33,14 @@ export function Plans() {
               <article
                 key={plan.id}
                 className={classNames(
-                  'flex min-w-[280px] snap-start flex-col border bg-white p-6 lg:min-w-0',
+                  'lift flex min-w-[280px] snap-start flex-col rounded-2xl border bg-white p-6 lg:min-w-0',
                   plan.is_featured ? 'border-brand shadow-panel' : 'border-line',
                 )}
               >
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-xl font-semibold">{plan.name}</h3>
                   {plan.is_featured ? (
-                    <span className="rounded-sm bg-brand/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-brand">
+                    <span className="rounded-full bg-brand/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-brand">
                       Recomendado
                     </span>
                   ) : null}
@@ -61,17 +62,17 @@ export function Plans() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#contacto"
+                <Link
+                  to="/contacto"
                   className={classNames(
-                    'mt-8 inline-flex justify-center rounded-sm px-4 py-2.5 text-sm font-medium',
+                    'mt-8 inline-flex justify-center rounded-full px-4 py-2.5 text-sm font-medium transition-colors duration-ui',
                     plan.is_featured
-                      ? 'bg-brand text-white hover:bg-[#125890]'
+                      ? 'bg-brand text-white hover:bg-brand-hover'
                       : 'border border-line text-ink hover:border-brand hover:text-brand',
                   )}
                 >
                   Solicitar este plan
-                </a>
+                </Link>
               </article>
             ))}
           </div>
@@ -84,12 +85,12 @@ export function Plans() {
               Si los módulos no cubren tu operación, evaluamos un desarrollo ajustado a tu proceso.
             </p>
           </div>
-          <a
-            href="#contacto"
-            className="inline-flex rounded-sm bg-primary-dark px-4 py-2.5 text-sm font-medium text-white"
+          <Link
+            to="/contacto"
+            className="inline-flex rounded-full bg-primary-dark px-4 py-2.5 text-sm font-medium text-white transition-colors duration-ui hover:bg-primary"
           >
             Solicitar cotización
-          </a>
+          </Link>
         </div>
       </div>
     </section>

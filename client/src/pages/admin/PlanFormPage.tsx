@@ -180,7 +180,7 @@ export function PlanFormPage() {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-sm bg-brand px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+          className="rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors duration-ui hover:bg-brand-hover disabled:opacity-60"
         >
           {loading ? 'Guardando…' : 'Guardar'}
         </button>

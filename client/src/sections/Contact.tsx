@@ -149,7 +149,7 @@ export function Contact() {
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="mt-6 w-full rounded-sm bg-brand px-5 py-3 text-sm font-medium text-white hover:bg-[#125890] disabled:opacity-60 sm:w-auto"
+            className="mt-6 w-full rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors duration-ui hover:bg-brand-hover disabled:opacity-60 sm:w-auto"
           >
             {status === 'loading' ? 'Enviando…' : 'Solicitar cotización'}
           </button>
@@ -160,7 +160,7 @@ export function Contact() {
 }
 
 const fieldClass =
-  'mt-1 w-full rounded-sm border border-line bg-white px-3 py-2.5 text-sm outline-none ring-brand/20 focus:ring-2';
+  'mt-1 w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm outline-none ring-brand/20 transition-[box-shadow] duration-ui focus:ring-2';
 
 function Field({
   label,

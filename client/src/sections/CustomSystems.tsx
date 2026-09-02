@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const steps = [
   { n: '01', title: 'Analizamos tu necesidad', text: 'Revisamos el proceso actual, los documentos y los cuellos de botella.' },
   { n: '02', title: 'Definimos la solución', text: 'Acordamos alcance, módulos y criterios de entrega antes de construir.' },
@@ -28,12 +30,12 @@ export function CustomSystems() {
             </li>
           ))}
         </ol>
-        <a
-          href="#contacto"
-          className="mt-10 inline-flex rounded-sm bg-brand px-5 py-3 text-sm font-medium text-white hover:bg-[#125890]"
+        <Link
+          to="/contacto"
+          className="mt-10 inline-flex rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors duration-ui hover:bg-brand-hover"
         >
           Cuéntanos tu proyecto
-        </a>
+        </Link>
       </div>
     </section>
   );

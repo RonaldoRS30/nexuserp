@@ -1,23 +1,23 @@
 const reasons = [
   {
     title: 'Desarrollo a medida',
-    text: 'El sistema se adapta a tus procesos.',
+    text: 'El sistema se adapta a tus procesos. No partimos de una plantilla genérica: modelamos pantallas, flujos y reglas con el lenguaje de tu operación.',
   },
   {
     title: 'Arquitectura escalable',
-    text: 'Construimos soluciones preparadas para crecer.',
+    text: 'Construimos soluciones preparadas para crecer, con validaciones, roles y datos reales desde la puesta en marcha.',
   },
   {
     title: 'Enfoque empresarial',
-    text: 'Analizamos el proceso antes de desarrollar.',
+    text: 'Analizamos el proceso antes de desarrollar. Revisamos documentos, cuellos de botella y el alcance antes de construir.',
   },
   {
     title: 'Tecnología moderna',
-    text: 'Utilizamos herramientas actuales para crear soluciones eficientes.',
+    text: 'Utilizamos herramientas actuales para crear soluciones eficientes, estables y entendibles para tu equipo.',
   },
   {
     title: 'Soporte',
-    text: 'Acompañamos la solución después de su implementación.',
+    text: 'Acompañamos la solución después de su implementación: correcciones, ajustes y evolución del sistema.',
   },
 ];
 

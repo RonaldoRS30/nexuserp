@@ -14,14 +14,25 @@ export const config = {
 };
 
 export const navLinks = [
-  { label: 'Inicio', href: '/#inicio' },
-  { label: 'Servicios', href: '/#servicios' },
-  { label: 'Soluciones', href: '/#soluciones' },
-  { label: 'Planes', href: '/#planes' },
-  { label: 'Nosotros', href: '/#nosotros' },
-  { label: 'Proceso', href: '/#proceso' },
-  { label: 'Contacto', href: '/#contacto' },
+  { label: 'Inicio', to: '/' },
+  { label: 'Servicios', to: '/servicios' },
+  { label: 'Soluciones', to: '/soluciones' },
+  { label: 'Planes', to: '/planes' },
+  { label: 'Contacto', to: '/contacto' },
 ];
+
+export const footerLinks = [
+  { label: 'Inicio', to: '/' },
+  { label: 'Servicios', to: '/servicios' },
+  { label: 'Soluciones', to: '/soluciones' },
+  { label: 'Planes', to: '/planes' },
+  { label: 'Contacto', to: '/contacto' },
+];
+
+export function isNavActive(pathname: string, to: string) {
+  if (to === '/') return pathname === '/';
+  return pathname === to || pathname.startsWith(`${to}/`);
+}
 
 export const serviceOptions = [
   'Sistemas de facturación',

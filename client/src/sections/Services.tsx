@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Cable, FileText, LifeBuoy, Monitor, RefreshCw, Workflow } from 'lucide-react';
 import { SectionHeading } from '../components/SectionHeading';
 
@@ -60,7 +61,7 @@ export function Services() {
           description="Cada servicio responde a un problema operativo concreto. El alcance se define con el proceso de tu empresa, no con un paquete cerrado."
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-5">
-          <article className="border border-line bg-surface-muted p-8 lg:col-span-2">
+          <article className="lift rounded-2xl border border-line bg-surface-muted p-8 lg:col-span-2">
             <featured.icon className="h-6 w-6 text-brand" strokeWidth={1.6} />
             <h3 className="mt-5 text-2xl font-semibold">{featured.name}</h3>
             <p className="mt-3 text-sm leading-7 text-ink-muted">{featured.description}</p>
@@ -72,13 +73,13 @@ export function Services() {
                 </li>
               ))}
             </ul>
-            <a href="#contacto" className="mt-8 inline-block text-sm font-medium text-brand hover:underline">
+            <Link to="/contacto" className="mt-8 inline-block text-sm font-medium text-brand transition-colors duration-ui hover:text-brand-hover">
               Consultar este servicio
-            </a>
+            </Link>
           </article>
           <div className="grid gap-6 sm:grid-cols-2 lg:col-span-3">
             {rest.map((service) => (
-              <article key={service.name} className="border border-line bg-white p-6">
+              <article key={service.name} className="lift rounded-2xl border border-line bg-white p-6">
                 <service.icon className="h-5 w-5 text-primary" strokeWidth={1.6} />
                 <h3 className="mt-4 text-lg font-semibold">{service.name}</h3>
                 <p className="mt-2 text-sm leading-6 text-ink-muted">{service.description}</p>

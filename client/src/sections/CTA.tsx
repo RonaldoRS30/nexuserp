@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
+
 export function CTA() {
   return (
-    <section className="bg-primary-dark px-5 py-16 text-white lg:px-8">
+    <section className="bg-primary-dark px-5 py-20 text-white lg:px-8">
       <div className="mx-auto flex max-w-content flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div>
           <h2 className="text-3xl font-semibold">Si el proceso ya existe, el sistema puede construirse alrededor de él.</h2>
@@ -8,12 +10,12 @@ export function CTA() {
             Cuéntanos cómo opera tu empresa hoy. Preparamos una cotización con alcance, módulos y tiempos.
           </p>
         </div>
-        <a
-          href="#contacto"
-          className="inline-flex shrink-0 rounded-sm bg-white px-5 py-3 text-sm font-medium text-primary-dark hover:bg-slate-100"
+        <Link
+          to="/contacto"
+          className="inline-flex shrink-0 rounded-full bg-white px-5 py-3 text-sm font-semibold text-primary-dark transition-colors duration-ui hover:bg-stone-100"
         >
           Solicitar una cotización
-        </a>
+        </Link>
       </div>
     </section>
   );

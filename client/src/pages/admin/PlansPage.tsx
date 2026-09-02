@@ -49,7 +49,7 @@ export function PlansPage() {
           <h1 className="text-2xl font-semibold">Planes</h1>
           <p className="mt-1 text-sm text-ink-muted">Contenido que se muestra en la sección pública de planes.</p>
         </div>
-        <Link to="/admin/planes/nuevo" className="rounded-sm bg-brand px-4 py-2.5 text-sm font-medium text-white">
+        <Link to="/admin/planes/nuevo" className="rounded-full bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors duration-ui hover:bg-brand-hover">
           Crear plan
         </Link>
       </div>

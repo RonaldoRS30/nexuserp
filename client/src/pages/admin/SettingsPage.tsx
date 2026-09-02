@@ -61,7 +61,7 @@ export function SettingsPage() {
         </label>
         {message ? <p className="text-sm text-[#027a48]">{message}</p> : null}
         {error ? <p className="text-sm text-red-700">{error}</p> : null}
-        <button type="submit" className="rounded-sm bg-brand px-4 py-2.5 text-sm font-medium text-white">
+        <button type="submit" className="rounded-full bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors duration-ui hover:bg-brand-hover">
           Actualizar
         </button>
       </form>
