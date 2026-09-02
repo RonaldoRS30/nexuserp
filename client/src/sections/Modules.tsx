@@ -6,8 +6,8 @@ export function Modules() {
   const { modules, loading, error } = usePublicModules();
 
   return (
-    <section id="modulos" className="border-y border-line bg-surface-muted px-5 py-20 lg:px-8">
-      <div className="mx-auto max-w-content">
+    <section id="modulos" className="border-y border-line bg-surface-muted py-20">
+      <div className="page-wrap">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)]">
           <SectionHeading
             eyebrow="Módulos"

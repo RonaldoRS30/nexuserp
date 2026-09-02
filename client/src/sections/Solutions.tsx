@@ -29,8 +29,8 @@ const groups = [
 
 export function Solutions() {
   return (
-    <section id="soluciones" className="border-y border-line bg-surface-muted px-5 py-20 lg:px-8">
-      <div className="mx-auto max-w-content">
+    <section id="soluciones" className="border-y border-line bg-surface-muted py-20">
+      <div className="page-wrap">
         <SectionHeading
           eyebrow="Soluciones"
           title="Digitalizamos los procesos que hacen crecer tu negocio"

@@ -23,10 +23,10 @@ const paths = [
 
 export function HomePaths() {
   return (
-    <section className="bg-white px-5 py-20 lg:px-8">
-      <div className="mx-auto max-w-content">
+    <section className="bg-white py-20">
+      <div className="page-wrap">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Cómo podemos ayudarte</p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold md:text-4xl">Empieza por lo que tu empresa necesita hoy</h2>
+        <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Empieza por lo que tu empresa necesita hoy</h2>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {paths.map((item) => (
             <Link

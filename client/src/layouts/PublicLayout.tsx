@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { navLinks } from '../config';
 import { useNavDirection } from '../hooks/useNavDirection';
+import { prefetchPublicModules } from '../hooks/usePublicModules';
+import { prefetchPublicPlans } from '../hooks/usePublicPlans';
 import { useSectionReveal } from '../hooks/useSectionReveal';
 
 const publicOrder = navLinks.map((link) => link.to);
@@ -12,6 +15,11 @@ export function PublicLayout() {
   const location = useLocation();
   const direction = useNavDirection(location.pathname, publicOrder);
   useSectionReveal(location.pathname);
+
+  useEffect(() => {
+    prefetchPublicPlans();
+    prefetchPublicModules();
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-surface">

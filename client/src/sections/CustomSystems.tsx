@@ -11,9 +11,9 @@ const steps = [
 
 export function CustomSystems() {
   return (
-    <section id="a-medida" className="bg-white px-5 py-20 lg:px-8">
-      <div className="mx-auto max-w-content">
-        <div className="max-w-3xl">
+    <section id="a-medida" className="bg-white py-20">
+      <div className="page-wrap">
+        <div>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Desarrollo a medida</p>
           <h2 className="mt-3 text-3xl font-semibold md:text-4xl">¿Necesitas un sistema diferente?</h2>
           <p className="mt-4 text-lg leading-8 text-ink-muted">

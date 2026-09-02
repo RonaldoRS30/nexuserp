@@ -9,16 +9,20 @@ export function Plans() {
   const { plans, loading, error } = usePublicPlans();
 
   return (
-    <section id="planes" className="bg-white px-5 py-20 lg:px-8">
-      <div className="mx-auto max-w-content">
+    <section id="planes" className="bg-white py-20">
+      <div className="page-wrap">
         <SectionHeading
           eyebrow="Planes"
           title="Elige el alcance que necesita tu operación"
           description="Cada plan agrupa módulos concretos. El precio corresponde a 12 meses de uso del sistema comercializado. Si tu proceso no encaja, evaluamos un desarrollo a medida."
         />
 
-        {loading ? (
-          <p className="mt-12 text-sm text-ink-muted">Cargando planes…</p>
+        {loading && plans.length === 0 ? (
+          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            {[0, 1, 2].map((slot) => (
+              <div key={slot} className="h-[420px] rounded-2xl border border-line bg-surface-muted" />
+            ))}
+          </div>
         ) : null}
         {error ? (
           <p className="mt-12 text-sm text-red-700">No se pudieron cargar los planes. Intente más tarde.</p>

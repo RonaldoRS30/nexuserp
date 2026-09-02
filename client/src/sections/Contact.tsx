@@ -43,8 +43,8 @@ export function Contact() {
   }
 
   return (
-    <section id="contacto" className="bg-white px-5 py-20 lg:px-8">
-      <div className="mx-auto grid max-w-content gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+    <section id="contacto" className="bg-white py-20">
+      <div className="page-wrap grid gap-12 lg:grid-cols-2">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Contacto</p>
           <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Solicitar cotización</h2>

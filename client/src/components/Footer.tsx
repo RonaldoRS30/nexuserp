@@ -5,12 +5,12 @@ import { config, footerLinks } from '../config';
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-white/10 bg-primary-dark text-white">
-      <div className="mx-auto grid max-w-content gap-10 px-5 py-16 md:grid-cols-3 lg:px-8">
+      <div className="page-wrap grid gap-10 py-16 md:grid-cols-3">
         <div>
           <div className="inline-flex rounded-lg bg-white px-3 py-2">
             <Logo className="[&_img]:h-9" />
           </div>
-          <p className="mt-5 max-w-sm text-sm leading-6 text-neutral-400">
+          <p className="mt-5 text-sm leading-6 text-neutral-400">
             Soluciones de software diseñadas para optimizar procesos y acompañar el crecimiento de las
             empresas.
           </p>
@@ -53,7 +53,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <p className="mx-auto max-w-content px-5 py-5 text-xs text-neutral-500 lg:px-8">
+        <p className="page-wrap py-5 text-xs text-neutral-500">
           © 2026 NexusERP. Todos los derechos reservados.
         </p>
       </div>

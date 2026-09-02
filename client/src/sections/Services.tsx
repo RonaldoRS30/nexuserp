@@ -53,8 +53,8 @@ export function Services() {
   const rest = services.slice(1);
 
   return (
-    <section id="servicios" className="bg-white px-5 py-20 lg:px-8">
-      <div className="mx-auto max-w-content">
+    <section id="servicios" className="bg-white py-20">
+      <div className="page-wrap">
         <SectionHeading
           eyebrow="Servicios"
           title="Soluciones tecnológicas para tu empresa"

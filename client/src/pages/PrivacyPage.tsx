@@ -2,7 +2,7 @@ import { SEO } from '../components/SEO';
 
 export function PrivacyPage() {
   return (
-    <article className="mx-auto max-w-3xl px-5 py-16 lg:px-8">
+    <article className="page-wrap py-16">
       <SEO title="Política de privacidad" path="/privacidad" />
       <p className="text-xs uppercase tracking-[0.18em] text-brand">Legal</p>
       <h1 className="mt-3 text-3xl font-semibold">Política de privacidad</h1>

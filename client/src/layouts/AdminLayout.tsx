@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Layers, LogOut, Mail, Settings, Tags } from 'lucide-react';
 import { Logo } from '../components/Logo';
-import { RouteProgress } from '../components/RouteProgress';
 import { logout } from '../services/auth';
 import { classNames } from '../utils/format';
 import { useNavDirection } from '../hooks/useNavDirection';
@@ -31,7 +30,6 @@ export function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-surface-muted lg:grid lg:grid-cols-[256px_1fr]">
-      <RouteProgress trigger={location.pathname} />
       <aside className="border-b border-line bg-stone-50 lg:flex lg:min-h-screen lg:flex-col lg:border-b-0 lg:border-r">
         <div className="flex items-center justify-between px-4 py-4 lg:block">
           <Logo to="/admin/dashboard" className="[&_img]:h-8" />

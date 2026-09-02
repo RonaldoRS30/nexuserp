@@ -23,8 +23,8 @@ const reasons = [
 
 export function WhyNexus() {
   return (
-    <section id="nosotros" className="border-y border-line bg-surface-muted px-5 py-20 lg:px-8">
-      <div className="mx-auto grid max-w-content gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+    <section id="nosotros" className="border-y border-line bg-surface-muted py-20">
+      <div className="page-wrap grid gap-12 lg:grid-cols-2">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Por qué NexusERP</p>
           <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Construimos el sistema alrededor de su operación</h2>

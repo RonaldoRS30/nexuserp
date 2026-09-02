@@ -17,11 +17,24 @@
   --ease-ui: 180ms cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-page: 620ms;
+  --duration-page: 880ms;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.page-wrap {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .page-wrap {
+    padding-inline: 2rem;
+  }
 }
 
 html {
@@ -59,12 +72,12 @@ h4 {
 }
 
 .reveal {
-  animation: fade-up 0.7s var(--ease-spring) backwards;
+  animation: fade-up 0.95s var(--ease-spring) backwards;
 }
 
-.reveal-delay-1 { animation-delay: 0.12s; }
-.reveal-delay-2 { animation-delay: 0.22s; }
-.reveal-delay-3 { animation-delay: 0.32s; }
+.reveal-delay-1 { animation-delay: 0.16s; }
+.reveal-delay-2 { animation-delay: 0.28s; }
+.reveal-delay-3 { animation-delay: 0.4s; }
 
 @keyframes fade-up {
   from {
@@ -90,8 +103,8 @@ h4 {
 
 @keyframes page-in-right {
   from {
-    opacity: 0.5;
-    transform: translate3d(80px, 0, 0);
+    opacity: 0.72;
+    transform: translate3d(28px, 0, 0);
   }
   to {
     opacity: 1;
@@ -101,8 +114,8 @@ h4 {
 
 @keyframes page-in-left {
   from {
-    opacity: 0.5;
-    transform: translate3d(-80px, 0, 0);
+    opacity: 0.72;
+    transform: translate3d(-28px, 0, 0);
   }
   to {
     opacity: 1;
@@ -112,8 +125,8 @@ h4 {
 
 @keyframes page-in-up {
   from {
-    opacity: 0.5;
-    transform: translate3d(0, 36px, 0);
+    opacity: 0.72;
+    transform: translate3d(0, 18px, 0);
   }
   to {
     opacity: 1;
@@ -177,8 +190,13 @@ h4 {
   }
 }
 
+.page-stage {
+  isolation: isolate;
+}
+
 .page-sheet {
-  animation: page-in-up 520ms var(--ease-spring) backwards;
+  backface-visibility: hidden;
+  animation: page-in-up 760ms var(--ease-spring) backwards;
 }
 
 .page-sheet[data-dir='fwd'] {
@@ -188,21 +206,6 @@ h4 {
 .page-sheet[data-dir='back'] {
   animation-name: page-in-left;
 }
-
-.heading-enter {
-  animation: heading-in 560ms var(--ease-spring) 60ms backwards;
-}
-
-.page-sheet .lift {
-  animation: card-in 580ms var(--ease-spring) backwards;
-}
-
-.page-sheet .lift:nth-child(1) { animation-delay: 80ms; }
-.page-sheet .lift:nth-child(2) { animation-delay: 140ms; }
-.page-sheet .lift:nth-child(3) { animation-delay: 200ms; }
-.page-sheet .lift:nth-child(4) { animation-delay: 260ms; }
-.page-sheet .lift:nth-child(5) { animation-delay: 320ms; }
-.page-sheet .lift:nth-child(6) { animation-delay: 380ms; }
 
 .route-progress {
   background: linear-gradient(90deg, #c7d2fe, #4f46e5 40%, #6366f1);
@@ -217,7 +220,7 @@ h4 {
 .section-reveal {
   opacity: 1;
   transform: translate3d(0, 40px, 0);
-  transition: transform 640ms var(--ease-spring);
+  transition: transform 860ms var(--ease-spring);
 }
 
 .section-reveal.is-inview {
@@ -230,11 +233,11 @@ main section[id] {
 
 .nav-indicator {
   transition:
-    left 380ms var(--ease-spring),
-    width 380ms var(--ease-spring),
-    top 380ms var(--ease-spring),
-    height 380ms var(--ease-spring),
-    opacity 160ms var(--ease-out);
+    left 520ms var(--ease-spring),
+    width 520ms var(--ease-spring),
+    top 520ms var(--ease-spring),
+    height 520ms var(--ease-spring),
+    opacity 200ms var(--ease-out);
 }
 
 .lift {
@@ -258,7 +261,6 @@ main section[id] {
   .reveal,
   .heading-enter,
   .page-sheet,
-  .page-sheet .lift,
   .route-progress,
   .drawer-enter {
     animation: fade-in 180ms ease both;

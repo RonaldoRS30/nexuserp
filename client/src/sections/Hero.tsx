@@ -3,15 +3,14 @@ import { DashboardMockup } from '../components/DashboardMockup';
 
 export function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden border-b border-line">
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-surface-muted lg:block" />
-      <div className="mx-auto grid max-w-content items-center gap-12 px-5 py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16 lg:px-8 lg:py-24">
+    <section id="inicio" className="border-b border-line">
+      <div className="page-wrap grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
         <div className="reveal">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Software empresarial</p>
-          <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-ink md:text-5xl">
+          <h1 className="mt-4 text-4xl font-semibold leading-tight text-ink md:text-5xl">
             Software que se adapta a tu negocio.
           </h1>
-          <p className="mt-5 max-w-lg text-lg leading-8 text-ink-muted">
+          <p className="mt-5 text-lg leading-8 text-ink-muted">
             Desarrollamos sistemas de facturación y soluciones web a medida para optimizar los procesos de tu
             empresa.
           </p>
@@ -29,7 +28,7 @@ export function Hero() {
               Ver soluciones
             </Link>
           </div>
-          <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-line pt-6">
+          <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-6">
             <div>
               <dt className="text-xs text-ink-muted">Especialidad</dt>
               <dd className="mt-1 text-sm font-medium">Facturación y ERP</dd>

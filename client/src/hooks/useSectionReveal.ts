@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 export function useSectionReveal(scopeKey = '', selector = 'main section[id]:not(#inicio)') {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector));
     if (!nodes.length) return undefined;
 
@@ -13,7 +13,7 @@ export function useSectionReveal(scopeKey = '', selector = 'main section[id]:not
 
     const isVisible = (node: HTMLElement) => {
       const rect = node.getBoundingClientRect();
-      return rect.top < window.innerHeight * 0.92 && rect.bottom > 80;
+      return rect.top < window.innerHeight * 0.94 && rect.bottom > 60;
     };
 
     const observer = new IntersectionObserver(
@@ -25,7 +25,7 @@ export function useSectionReveal(scopeKey = '', selector = 'main section[id]:not
           }
         });
       },
-      { threshold: 0.08, rootMargin: '0px 0px -8% 0px' },
+      { threshold: 0.06, rootMargin: '0px 0px -6% 0px' },
     );
 
     nodes.forEach((node) => {
@@ -39,7 +39,7 @@ export function useSectionReveal(scopeKey = '', selector = 'main section[id]:not
 
     const fallback = window.setTimeout(() => {
       nodes.forEach((node) => node.classList.add('is-inview'));
-    }, 900);
+    }, 1600);
 
     return () => {
       window.clearTimeout(fallback);

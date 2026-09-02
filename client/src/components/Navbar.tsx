@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
-import { RouteProgress } from './RouteProgress';
 import { isNavActive, navLinks } from '../config';
 import { classNames } from '../utils/format';
 import { useSlidingIndicator } from '../hooks/useSlidingIndicator';
@@ -27,8 +26,7 @@ export function Navbar() {
         scrolled ? 'border-line shadow-nav' : 'border-transparent',
       )}
     >
-      <RouteProgress trigger={location.pathname} />
-      <div className="mx-auto flex h-16 max-w-content items-center gap-3 px-4 sm:gap-5 sm:px-5 lg:px-8">
+      <div className="page-wrap flex h-16 items-center gap-3 sm:gap-5">
         <Logo className="shrink-0" />
         <nav
           ref={navRef}
