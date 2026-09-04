@@ -2,6 +2,7 @@ import { FormEvent, useState, type ReactNode } from 'react';
 import { submitContact } from '../services/contacts';
 import { serviceOptions } from '../config';
 import { useSiteSettings, resolveWhatsAppHref } from '../hooks/useSiteSettings';
+import { SocialLinks } from '../components/SocialLinks';
 import { ApiError } from '../services/api';
 
 const empty = {
@@ -83,6 +84,7 @@ export function Contact() {
               </div>
             ) : null}
           </dl>
+          <SocialLinks className="mt-8" variant="light" />
         </div>
         <form onSubmit={onSubmit} className="border border-line bg-surface-muted p-6 md:p-8" noValidate>
           <div className="grid gap-4 sm:grid-cols-2">

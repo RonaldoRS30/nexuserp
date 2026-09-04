@@ -8,6 +8,8 @@ const fallback: SiteSettings = {
   contact_email: config.contactEmail || null,
   contact_phone: config.contactPhone || null,
   whatsapp_number: config.whatsappNumber || null,
+  facebook_url: null,
+  instagram_url: null,
 };
 
 let cached: SiteSettings | null = null;

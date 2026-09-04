@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
 import { config, footerLinks } from '../config';
 import { useSiteSettings } from '../hooks/useSiteSettings';
+import { SocialLinks } from './SocialLinks';
 
 export function Footer() {
   const { settings } = useSiteSettings();
@@ -53,6 +54,7 @@ export function Footer() {
           {settings.contact_phone ? (
             <p className="text-sm text-neutral-400">{settings.contact_phone}</p>
           ) : null}
+          <SocialLinks className="mt-6" variant="dark" />
         </div>
       </div>
       <div className="border-t border-white/10">

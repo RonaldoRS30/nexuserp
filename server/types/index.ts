@@ -55,6 +55,8 @@ export interface SiteSettingsRow {
   contact_email: string | null;
   contact_phone: string | null;
   whatsapp_number: string | null;
+  facebook_url: string | null;
+  instagram_url: string | null;
   updated_at: Date;
 }
 

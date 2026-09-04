@@ -9,6 +9,8 @@ const emptyContact = {
   contact_email: '',
   contact_phone: '',
   whatsapp_number: '',
+  facebook_url: '',
+  instagram_url: '',
 };
 
 export function SettingsPage() {
@@ -30,6 +32,8 @@ export function SettingsPage() {
           contact_email: data.contact_email ?? '',
           contact_phone: data.contact_phone ?? '',
           whatsapp_number: data.whatsapp_number ?? '',
+          facebook_url: data.facebook_url ?? '',
+          instagram_url: data.instagram_url ?? '',
         });
       })
       .catch((err: Error) => setContactError(err.message));
@@ -46,6 +50,8 @@ export function SettingsPage() {
         contact_email: contact.contact_email.trim() || null,
         contact_phone: contact.contact_phone.trim() || null,
         whatsapp_number: contact.whatsapp_number.trim() || null,
+        facebook_url: contact.facebook_url.trim() || null,
+        instagram_url: contact.instagram_url.trim() || null,
       });
       replaceSiteSettingsCache(saved);
       setContactMessage('Datos de contacto actualizados. Ya aparecen en el sitio público.');
@@ -74,7 +80,7 @@ export function SettingsPage() {
     <div className="max-w-2xl">
       <h1 className="text-2xl font-semibold">Configuración</h1>
       <p className="mt-1 text-sm text-ink-muted">
-        Estos datos se muestran en el formulario de contacto, el pie de página y el botón de WhatsApp.
+        Estos datos se muestran en el formulario de contacto, el pie de página y las redes sociales.
         Si un campo queda vacío, no se publica.
       </p>
 
@@ -119,6 +125,29 @@ export function SettingsPage() {
           <span className="mt-1 block text-xs font-normal text-ink-muted">
             Este valor activa el logo de WhatsApp anclado en el sitio. Incluya el código de país.
           </span>
+        </label>
+        <label className="block text-sm font-medium">
+          Facebook
+          <input
+            type="url"
+            value={contact.facebook_url}
+            onChange={(e) => setContact({ ...contact, facebook_url: e.target.value })}
+            className={inputClass}
+            placeholder="https://www.facebook.com/tu-pagina"
+          />
+          <span className="mt-1 block text-xs font-normal text-ink-muted">
+            Pegue el enlace completo de su página. Si queda vacío, el icono no aparece.
+          </span>
+        </label>
+        <label className="block text-sm font-medium">
+          Instagram
+          <input
+            type="url"
+            value={contact.instagram_url}
+            onChange={(e) => setContact({ ...contact, instagram_url: e.target.value })}
+            className={inputClass}
+            placeholder="https://www.instagram.com/tu-cuenta"
+          />
         </label>
         {contactMessage ? <p className="text-sm text-[#027a48]">{contactMessage}</p> : null}
         {contactError ? <p className="text-sm text-red-700">{contactError}</p> : null}

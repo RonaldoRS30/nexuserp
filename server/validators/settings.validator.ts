@@ -9,4 +9,6 @@ export const settingsRules = [
     .normalizeEmail(),
   body('contact_phone').optional({ nullable: true, checkFalsy: true }).isLength({ max: 40 }),
   body('whatsapp_number').optional({ nullable: true, checkFalsy: true }).isLength({ max: 255 }),
+  body('facebook_url').optional({ nullable: true, checkFalsy: true }).isLength({ max: 255 }),
+  body('instagram_url').optional({ nullable: true, checkFalsy: true }).isLength({ max: 255 }),
 ];
