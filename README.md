@@ -1,48 +1,72 @@
 # NexusERP
 
-Sitio corporativo y panel administrativo para gestionar el contenido comercial de NexusERP: planes, módulos y consultas.
+Sitio corporativo y panel administrativo para gestionar planes, módulos y consultas.
 
-## Requisitos
+## Arranque en local (Windows)
+
+### Requisitos
 
 - Node.js 20 o superior
-- MySQL 8 (XAMPP o Docker)
+- XAMPP con **MySQL encendido** (puerto 3306)
 
-## Configuración
+### Primera vez
 
-1. Copie `.env.example` a `.env` y complete las credenciales.
-2. Instale dependencias:
+En PowerShell, desde la carpeta del proyecto:
 
-```bash
+```powershell
+cd C:\nexuserp
 npm install
-```
-
-3. Cree la base de datos y los datos iniciales:
-
-```bash
-npm run db:init
-npm run db:seed
-```
-
-4. Inicie frontend y backend:
-
-```bash
+npm run setup
 npm run dev
 ```
 
-- Sitio público: http://localhost:5173
-- Panel: http://localhost:5173/admin
-- API: http://localhost:4000/api/health
+O un solo comando:
 
-El usuario administrador inicial se crea con `ADMIN_EMAIL` y `ADMIN_PASSWORD` del archivo `.env`.
+```powershell
+cd C:\nexuserp
+.\start-local.ps1
+```
 
-## Contacto público
+Si PowerShell bloquea el script:
 
-`VITE_WHATSAPP_NUMBER`, `VITE_CONTACT_PHONE` y `VITE_CONTACT_EMAIL` controlan los datos visibles. Si un valor está vacío, no se muestra.
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+.\start-local.ps1
+```
+
+### Cada vez que quieras trabajar
+
+1. Abre XAMPP y pulsa **Start** en MySQL.
+2. En PowerShell:
+
+```powershell
+cd C:\nexuserp
+npm run dev
+```
+
+### Dónde entra
+
+| Qué | Dirección |
+|---|---|
+| Sitio público | http://localhost:5173 |
+| Panel admin | http://localhost:5173/admin |
+| API | http://localhost:4000/api/health |
+
+Usuario inicial (está en `.env`):
+
+- Correo: `admin@nexuserp.com`
+- Contraseña: `NexusERP2026!`
+
+### Contacto público
+
+Teléfono y WhatsApp se editan en `/admin/configuracion`. Si WhatsApp está vacío, el botón anclado no aparece.
 
 ## Docker (MySQL opcional)
+
+Si no usas XAMPP:
 
 ```bash
 docker compose up -d
 ```
 
-En `.env` use `DB_PORT=3307` y `DB_PASSWORD=nexuserp` si elige este contenedor.
+En `.env` pon `DB_PORT=3307` y `DB_PASSWORD=nexuserp`.

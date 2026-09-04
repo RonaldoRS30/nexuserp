@@ -5,8 +5,8 @@ import { images } from '../assets/images';
 const groups = [
   {
     title: 'Operación comercial',
-    image: images.comercial,
-    alt: 'Operación comercial con pedidos, clientes y ventas',
+    image: images.market,
+    alt: 'Punto de venta en minimarket con lectora y caja',
     items: [
       { name: 'Facturación', text: 'Comprobantes, series y control de documentos.' },
       { name: 'Ventas', text: 'Pedidos, cotizaciones y seguimiento comercial.' },
@@ -16,7 +16,7 @@ const groups = [
   {
     title: 'Operación interna',
     image: images.inventario,
-    alt: 'Control de inventario y productos en almacén',
+    alt: 'Control de inventario con NexusERP en almacén',
     items: [
       { name: 'Productos', text: 'Catálogo, precios y categorías.' },
       { name: 'Inventario', text: 'Stock, movimientos y alertas.' },
@@ -25,8 +25,8 @@ const groups = [
   },
   {
     title: 'Control y soporte',
-    image: images.logistica,
-    alt: 'Despacho logístico y control de entregas',
+    image: images.implementacion,
+    alt: 'Equipo revisando reportes e indicadores de gestión',
     items: [
       { name: 'Logística', text: 'Despachos y seguimiento de entregas.' },
       { name: 'Reportes', text: 'Indicadores para decidir con datos.' },

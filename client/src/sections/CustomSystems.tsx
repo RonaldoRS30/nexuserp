@@ -27,8 +27,8 @@ export function CustomSystems() {
           <div className="overflow-hidden rounded-2xl border border-line">
             <div className="aspect-[16/10]">
               <CoverImage
-                src={images.sistema}
-                alt="Sistema empresarial desarrollado a la medida de la operación"
+                src={images.reunion}
+                alt="Equipo definiendo la solución a partir del proceso de la empresa"
               />
             </div>
           </div>

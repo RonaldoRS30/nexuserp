@@ -38,8 +38,8 @@ export function WhyNexus() {
           <div className="mt-8 overflow-hidden rounded-2xl border border-line">
             <div className="aspect-[16/10]">
               <CoverImage
-                src={images.implementacion}
-                alt="Equipo revisando el proceso de la empresa antes de implementar el sistema"
+                src={images.sistema}
+                alt="Sistema empresarial NexusERP en operación"
               />
             </div>
           </div>
