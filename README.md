@@ -59,7 +59,31 @@ Usuario inicial (está en `.env`):
 
 ### Contacto público
 
-Teléfono y WhatsApp se editan en `/admin/configuracion`. Si WhatsApp está vacío, el botón anclado no aparece.
+Teléfono, WhatsApp, Facebook e Instagram se editan en `/admin/configuracion`. Si un valor está vacío, no se muestra.
+
+## Compartir el sitio con una URL pública
+
+Tu PC puede servir el sitio y Cloudflare genera un enlace temporal (tipo `https://algo.trycloudflare.com`) para que otras personas lo vean.
+
+1. Enciende **MySQL** en XAMPP.
+2. En PowerShell:
+
+```powershell
+cd C:\nexuserp
+.\share-public.ps1
+```
+
+3. En la consola aparecerá una URL `https://....trycloudflare.com`.
+4. Compártela. El sitio y el admin quedan en esa misma dirección.
+5. Para cortar el acceso: **Ctrl + C**. Si cierras la ventana o apagas la PC, el enlace deja de funcionar.
+
+Esto no es un hosting permanente. Es un túnel mientras tu computadora esté encendida y el script corriendo.
+
+O un alias:
+
+```powershell
+npm run share
+```
 
 ## Docker (MySQL opcional)
 

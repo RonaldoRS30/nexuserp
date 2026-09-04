@@ -39,4 +39,5 @@ export const env = {
     whatsappNumber: process.env.VITE_WHATSAPP_NUMBER || process.env.WHATSAPP_NUMBER || '',
   },
   isProd: (process.env.NODE_ENV ?? 'development') === 'production',
+  shareMode: process.env.SHARE_MODE === '1' || process.env.SHARE_MODE === 'true',
 };
