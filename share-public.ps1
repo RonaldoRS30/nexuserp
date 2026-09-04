@@ -44,25 +44,61 @@ Write-Host "Compilando el sitio..." -ForegroundColor Cyan
 $env:VITE_API_URL = "/api"
 npm run build:client
 
-Write-Host "Iniciando servidor local en el puerto 4000..." -ForegroundColor Cyan
-$env:SHARE_MODE = "1"
-$env:NODE_ENV = "production"
-
-function Stop-PortListener([int]$Port) {
-  Get-NetTCPConnection -LocalPort $Port -ErrorAction SilentlyContinue |
-    Where-Object { $_.State -eq "Listen" } |
-    ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
+function Get-PortPids([int]$Port) {
+  $pids = @()
+  $lines = netstat -ano | Select-String ":$Port\s+.+LISTENING"
+  foreach ($line in $lines) {
+    $procId = ($line.ToString().Trim() -split '\s+')[-1]
+    if ($procId -match '^\d+$' -and [int]$procId -gt 0) {
+      $pids += [int]$procId
+    }
+  }
+  return @($pids | Select-Object -Unique)
 }
 
-Stop-PortListener 4000
+function Test-PortInUse([int]$Port) {
+  return @(Get-PortPids $Port).Count -gt 0
+}
 
-$server = Start-Process -FilePath "cmd.exe" -ArgumentList "/c npm run start:share" -WorkingDirectory $PSScriptRoot -PassThru -WindowStyle Hidden
+function Find-FreePort([int]$StartPort) {
+  for ($p = $StartPort; $p -le ($StartPort + 20); $p++) {
+    if (-not (Test-PortInUse $p)) {
+      return $p
+    }
+  }
+  throw "No hay un puerto libre entre $StartPort y $($StartPort + 20)."
+}
+
+function Stop-PortListener([int]$Port) {
+  foreach ($procId in (Get-PortPids $Port)) {
+    Write-Host "Cerrando el servidor del puerto $Port (proceso $procId)..." -ForegroundColor Yellow
+    Stop-Process -Id $procId -Force -ErrorAction SilentlyContinue
+  }
+}
+
+$sharePort = Find-FreePort 4000
+if ($sharePort -ne 4000) {
+  Write-Host "El puerto 4000 ya esta en uso (por ejemplo npm run dev). Usando el $sharePort." -ForegroundColor Yellow
+}
+
+Write-Host "Iniciando servidor local en el puerto $sharePort..." -ForegroundColor Cyan
+$env:SHARE_MODE = "1"
+$env:NODE_ENV = "production"
+$env:PORT = "$sharePort"
+
+$logFile = Join-Path $PSScriptRoot "share-server.log"
+$server = Start-Process -FilePath "cmd.exe" `
+  -ArgumentList "/c npm run share:server > `"$logFile`" 2>&1" `
+  -WorkingDirectory $PSScriptRoot `
+  -PassThru `
+  -WindowStyle Hidden
 
 $ready = $false
-for ($i = 0; $i -lt 30; $i++) {
+for ($i = 1; $i -le 30; $i++) {
+  Write-Host "Esperando al servidor... ($i/30)" -ForegroundColor DarkGray
   Start-Sleep -Seconds 1
   try {
-    $health = Invoke-RestMethod -Uri "http://127.0.0.1:4000/api/health" -TimeoutSec 2
+    $health = Invoke-RestMethod -Uri "http://127.0.0.1:$sharePort/api/health" -TimeoutSec 2
     if ($health.success) {
       $ready = $true
       break
@@ -74,21 +110,26 @@ for ($i = 0; $i -lt 30; $i++) {
 
 if (-not $ready) {
   Write-Host "El servidor no arranco. Revisa MySQL y vuelve a intentar." -ForegroundColor Red
+  if (Test-Path $logFile) {
+    Write-Host "Detalle:" -ForegroundColor Yellow
+    Get-Content $logFile -ErrorAction SilentlyContinue
+  }
   if ($server -and -not $server.HasExited) { Stop-Process -Id $server.Id -Force }
+  Stop-PortListener $sharePort
   exit 1
 }
 
-Write-Host "Servidor listo. Creando URL publica..." -ForegroundColor Cyan
+Write-Host "Servidor listo en el puerto $sharePort. Creando URL publica..." -ForegroundColor Cyan
 Write-Host "Cuando termines, pulsa Ctrl + C. El enlace se apaga al cerrar." -ForegroundColor Yellow
 Write-Host ""
 
 try {
-  npx --yes cloudflared tunnel --url http://127.0.0.1:4000
+  npx --yes cloudflared tunnel --url "http://127.0.0.1:$sharePort"
 } finally {
   Write-Host ""
   Write-Host "Cerrando servidor local..." -ForegroundColor Cyan
   if ($server -and -not $server.HasExited) {
     Stop-Process -Id $server.Id -Force -ErrorAction SilentlyContinue
   }
-  Stop-PortListener 4000
+  Stop-PortListener $sharePort
 }
