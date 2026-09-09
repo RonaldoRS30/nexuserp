@@ -1,54 +1,41 @@
 import { Link } from 'react-router-dom';
 import { DashboardMockup } from '../components/DashboardMockup';
+import { MacbookScroll } from '@/components/ui/macbook-scroll';
 import { DotBackground } from '../components/aceternity/DotBackground';
 import { HoverBorderGradient } from '../components/aceternity/HoverBorderGradient';
-import { BackgroundBeams } from '../components/aceternity/BackgroundBeams';
-import { GlowFrame } from '../components/aceternity/GlowFrame';
 
 export function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden border-b border-line">
+    <section id="inicio" className="relative z-0 border-b border-line bg-white max-md:overflow-x-clip">
       <DotBackground />
-      <BackgroundBeams />
-      <div className="page-wrap relative z-10 grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
-        <div className="reveal">
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Software empresarial</p>
-          <h1 className="mt-4 text-4xl font-semibold leading-tight text-ink md:text-5xl">
-            Software que se adapta a tu negocio.
-          </h1>
-          <p className="mt-5 text-lg leading-8 text-ink-muted">
-            Desarrollamos sistemas de facturación y soluciones web a medida para optimizar los procesos de tu
-            empresa.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
-              to="/contacto"
-              className="inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors duration-ui hover:bg-brand-hover"
-            >
-              Solicitar una cotización
-            </Link>
-            <HoverBorderGradient to="/soluciones">Ver soluciones</HoverBorderGradient>
-          </div>
-          <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-6">
-            <div>
-              <dt className="text-xs text-ink-muted">Especialidad</dt>
-              <dd className="mt-1 text-sm font-medium">Facturación y ERP</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-ink-muted">Enfoque</dt>
-              <dd className="mt-1 text-sm font-medium">Procesos reales</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-ink-muted">Modelo</dt>
-              <dd className="mt-1 text-sm font-medium">A medida</dd>
-            </div>
-          </dl>
-        </div>
-        <div className="reveal reveal-delay-2">
-          <GlowFrame>
-            <DashboardMockup />
-          </GlowFrame>
-        </div>
+      <div className="relative w-full">
+        <MacbookScroll
+          showGradient={false}
+          screen={<DashboardMockup className="h-full min-h-0 rounded-none border-0 shadow-none" />}
+          title={
+            <span className="flex flex-col items-center gap-3">
+              <span className="text-xs font-medium uppercase tracking-[0.22em] text-brand">
+                Software empresarial
+              </span>
+              <h1 className="block text-4xl font-semibold leading-tight text-ink md:text-5xl">
+                Software que se adapta a tu negocio.
+              </h1>
+              <span className="mx-auto block max-w-2xl text-base font-normal leading-7 text-ink-muted md:text-lg">
+                Desarrollamos sistemas de facturación y soluciones web a medida para optimizar los procesos de
+                tu empresa.
+              </span>
+              <span className="mt-2 flex w-full flex-col items-center justify-center gap-3 sm:mt-1 sm:flex-row">
+                <Link
+                  to="/contacto"
+                  className="inline-flex w-full max-w-xs items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors duration-ui hover:bg-brand-hover sm:w-auto"
+                >
+                  Solicitar una cotización
+                </Link>
+                <HoverBorderGradient to="/soluciones">Ver soluciones</HoverBorderGradient>
+              </span>
+            </span>
+          }
+        />
       </div>
     </section>
   );

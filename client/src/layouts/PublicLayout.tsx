@@ -26,7 +26,7 @@ export function PublicLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-surface">
       <Navbar />
-      <main className="page-stage flex-1 overflow-x-hidden bg-surface">
+      <main className="page-stage flex-1 bg-surface">
         <div key={location.pathname} className="page-sheet" data-dir={direction}>
           <Outlet />
         </div>

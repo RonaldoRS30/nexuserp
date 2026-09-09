@@ -32,7 +32,7 @@ const paths = [
 
 export function HomePaths() {
   return (
-    <section className="bg-white py-20">
+    <section className="relative z-30 isolate bg-white py-20">
       <div className="page-wrap">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Cómo podemos ayudarte</p>
         <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Empieza por lo que tu empresa necesita hoy</h2>
