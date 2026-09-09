@@ -97,33 +97,32 @@ export const MacbookScroll = ({
 
   const openT = mapProgress(progress, 0, isMobile ? 0.28 : 0.32);
   // Mobile: keep lid nearly open so the dashboard is readable in the first viewport
-  const scaleX = lerp(isMobile ? 1 : 1.15, isMobile ? 1 : 1.1, openT);
-  const scaleY = lerp(isMobile ? 1 : 0.62, isMobile ? 1 : 1.1, openT);
+  const scaleX = lerp(isMobile ? 1 : 1.15, isMobile ? 1 : 1.08, openT);
+  const scaleY = lerp(isMobile ? 1 : 0.62, isMobile ? 1 : 1.05, openT);
   const rotate = isMobile
     ? 0
     : progress < 0.06
       ? -28
-      : lerp(-28, 0, mapProgress(progress, 0.06, 0.32));
-  const translate = lerp(0, isMobile ? 0 : 10, openT);
+      : lerp(-28, 0, mapProgress(progress, 0.06, 0.3));
+  const translate = lerp(0, isMobile ? 0 : 8, openT);
   const textOpacity = 1 - mapProgress(progress, 0, isMobile ? 0.22 : 0.16);
   const textY = lerp(0, 36, mapProgress(progress, 0, 0.2));
-  // Fade earlier so the next section arrives sooner (less blank runway)
   const stageOpacity = 1 - mapProgress(progress, isMobile ? 0.5 : 0.58, isMobile ? 0.78 : 0.82);
 
-  // Fit machine to viewport width (32rem = 512px frame), then zoom on scroll
+  // Entire MacBook (lid + keyboard) fits viewport, then slight zoom as one piece
   const frameW = 512;
   const fitScale = Math.min(
     1.15,
-    Math.max(0.48, (viewportW - (isMobile ? 40 : 48)) / frameW),
+    Math.max(0.48, (viewportW - (isMobile ? 40 : 56)) / frameW),
   );
-  const zoomT = mapProgress(progress, 0.04, isMobile ? 0.35 : 0.4);
-  const scrollZoom = lerp(1, isMobile ? 1.18 : 1.28, zoomT);
-  const machineScale = fitScale * (isMobile ? Math.min(scrollZoom, 1.12) : scrollZoom);
-  // Mobile: larger UI on screen so dashboard text is readable
-  const screenContentScale = lerp(isMobile ? 0.92 : 0.66, isMobile ? 1.05 : 0.76, zoomT);
+  const zoomT = mapProgress(progress, 0.04, isMobile ? 0.35 : 0.36);
+  const scrollZoom = lerp(1, isMobile ? 1.18 : 1.2, zoomT);
+  const machineScale = fitScale * (isMobile ? Math.min(scrollZoom, 1.12) : Math.min(scrollZoom, 1.2));
+  // Dashboard image larger again (like before); sticky top keeps the full laptop under the nav
+  const screenContentScale = lerp(isMobile ? 0.92 : 0.72, isMobile ? 1.05 : 0.86, zoomT);
 
-  // Match reserved height to lid + keyboard (avoid extra white under the machine)
-  const layoutH = (isMobile ? 500 : 500) * machineScale;
+  // Lid spacer + keyboard height (full device), scaled
+  const layoutH = (isMobile ? 500 : 520) * machineScale;
   const titleOpen = textOpacity >= 0.05;
 
   return (
@@ -131,7 +130,6 @@ export const MacbookScroll = ({
       ref={ref}
       className={cn(
         "relative",
-        // Mobile: content height + short runway (not a tall empty min-height)
         isMobile ? "pb-[22vh]" : "min-h-[118vh]",
       )}
     >
@@ -140,7 +138,8 @@ export const MacbookScroll = ({
           "z-0 flex w-full flex-col items-center",
           isMobile
             ? "relative pt-2 pb-2"
-            : "sticky top-24 justify-start pt-2 md:top-28 md:pt-4",
+            // Full laptop stop: clear of the h-24 navbar (not only the screen image)
+            : "sticky top-36 justify-start pt-6 md:top-40 md:pt-8",
         )}
         style={{
           opacity: stageOpacity,
@@ -176,6 +175,7 @@ export const MacbookScroll = ({
             style={{
               width: frameW,
               marginLeft: -frameW / 2,
+              // Scale the whole device (bezel + screen + keyboard) as one unit
               transform: `scale(${machineScale})`,
               transformOrigin: "top center",
             }}
