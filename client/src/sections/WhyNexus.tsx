@@ -1,4 +1,5 @@
 import { CoverImage } from '../components/CoverImage';
+import { BentoCard, BentoGrid } from '../components/aceternity/BentoGrid';
 import { images } from '../assets/images';
 
 const reasons = [
@@ -44,17 +45,17 @@ export function WhyNexus() {
             </div>
           </div>
         </div>
-        <ol className="divide-y divide-line border-y border-line bg-white">
+        <BentoGrid>
           {reasons.map((item, index) => (
-            <li key={item.title} className="grid grid-cols-[72px_1fr] gap-4 px-5 py-5">
-              <span className="font-display text-sm text-ink-muted">0{index + 1}</span>
-              <div>
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="mt-1 text-sm text-ink-muted">{item.text}</p>
-              </div>
-            </li>
+            <BentoCard
+              key={item.title}
+              index={index}
+              title={item.title}
+              text={item.text}
+              className={index === 0 ? 'md:col-span-2' : undefined}
+            />
           ))}
-        </ol>
+        </BentoGrid>
       </div>
     </section>
   );

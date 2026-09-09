@@ -3,6 +3,7 @@ import { submitContact } from '../services/contacts';
 import { serviceOptions } from '../config';
 import { useSiteSettings, resolveWhatsAppHref } from '../hooks/useSiteSettings';
 import { SocialLinks } from '../components/SocialLinks';
+import { StatefulButton } from '../components/aceternity/StatefulButton';
 import { ApiError } from '../services/api';
 
 const empty = {
@@ -151,13 +152,9 @@ export function Contact() {
           {status !== 'idle' && message ? (
             <p className={`mt-4 text-sm ${status === 'success' ? 'text-[#027a48]' : 'text-red-700'}`}>{message}</p>
           ) : null}
-          <button
-            type="submit"
-            disabled={status === 'loading'}
-            className="mt-6 w-full rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors duration-ui hover:bg-brand-hover disabled:opacity-60 sm:w-auto"
-          >
-            {status === 'loading' ? 'Enviando…' : 'Solicitar cotización'}
-          </button>
+          <StatefulButton status={status} className="mt-6 w-full sm:w-auto">
+            Solicitar cotización
+          </StatefulButton>
         </form>
       </div>
     </section>

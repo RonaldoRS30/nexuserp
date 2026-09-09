@@ -1,4 +1,5 @@
 import { CoverImage } from '../components/CoverImage';
+import { HoverGrid } from '../components/aceternity/HoverGrid';
 import { images } from '../assets/images';
 
 const scenes = [
@@ -34,9 +35,9 @@ export function OperationsStrip() {
           Ventas, almacén y despacho no son módulos decorativos. Son procesos que deben verse y
           controlarse con la misma claridad en pantalla y en el piso de operación.
         </p>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <HoverGrid className="mt-12 grid gap-6 md:grid-cols-3">
           {scenes.map((scene) => (
-            <figure key={scene.title} className="overflow-hidden rounded-2xl border border-line bg-white">
+            <figure key={scene.title} className="h-full overflow-hidden rounded-2xl border border-line bg-white">
               <div className="aspect-[4/3] overflow-hidden">
                 <CoverImage src={scene.src} alt={scene.alt} />
               </div>
@@ -46,7 +47,7 @@ export function OperationsStrip() {
               </figcaption>
             </figure>
           ))}
-        </div>
+        </HoverGrid>
       </div>
     </section>
   );

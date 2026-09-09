@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Cable, FileText, LifeBuoy, Monitor, RefreshCw, Workflow } from 'lucide-react';
 import { SectionHeading } from '../components/SectionHeading';
 import { CoverImage } from '../components/CoverImage';
+import { HoverGrid } from '../components/aceternity/HoverGrid';
 import { images } from '../assets/images';
 
 const services = [
@@ -87,16 +88,16 @@ export function Services() {
             </Link>
             </div>
           </article>
-          <div className="grid gap-6 sm:grid-cols-2 lg:col-span-3">
+          <HoverGrid className="grid gap-6 sm:grid-cols-2 lg:col-span-3">
             {rest.map((service) => (
-              <article key={service.name} className="lift rounded-2xl border border-line bg-white p-6">
+              <article key={service.name} className="h-full rounded-2xl border border-line bg-white p-6">
                 <service.icon className="h-5 w-5 text-primary" strokeWidth={1.6} />
                 <h3 className="mt-4 text-lg font-semibold">{service.name}</h3>
                 <p className="mt-2 text-sm leading-6 text-ink-muted">{service.description}</p>
                 <p className="mt-4 text-xs text-ink-muted">{service.benefits.join(' · ')}</p>
               </article>
             ))}
-          </div>
+          </HoverGrid>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { SectionHeading } from '../components/SectionHeading';
 import { usePublicPlans } from '../hooks/usePublicPlans';
 import { formatPrice } from '../utils/format';
 import { classNames } from '../utils/format';
+import { HoverGrid } from '../components/aceternity/HoverGrid';
 
 export function Plans() {
   const { plans, loading, error } = usePublicPlans();
@@ -32,12 +33,12 @@ export function Plans() {
         ) : null}
 
         {plans.length > 0 ? (
-          <div className="plan-scroll mt-12 flex snap-x gap-5 overflow-x-auto pb-4 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
+          <HoverGrid className="plan-scroll mt-12 flex snap-x gap-5 overflow-x-auto pb-4 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
             {plans.map((plan) => (
               <article
                 key={plan.id}
                 className={classNames(
-                  'lift flex min-w-[280px] snap-start flex-col rounded-2xl border bg-white p-6 lg:min-w-0',
+                  'flex h-full min-w-[280px] snap-start flex-col rounded-2xl border bg-white p-6 lg:min-w-0',
                   plan.is_featured ? 'border-brand shadow-panel' : 'border-line',
                 )}
               >
@@ -79,7 +80,7 @@ export function Plans() {
                 </Link>
               </article>
             ))}
-          </div>
+          </HoverGrid>
         ) : null}
 
         <div className="mt-10 flex flex-col items-start justify-between gap-4 border border-dashed border-line bg-surface-muted px-6 py-5 sm:flex-row sm:items-center">

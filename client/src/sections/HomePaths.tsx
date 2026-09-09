@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CoverImage } from '../components/CoverImage';
+import { HoverGrid } from '../components/aceternity/HoverGrid';
 import { images } from '../assets/images';
 
 const paths = [
@@ -35,12 +36,12 @@ export function HomePaths() {
       <div className="page-wrap">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Cómo podemos ayudarte</p>
         <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Empieza por lo que tu empresa necesita hoy</h2>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <HoverGrid className="mt-12 grid gap-6 lg:grid-cols-3">
           {paths.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="lift flex flex-col overflow-hidden rounded-2xl border border-line bg-white"
+              className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white"
             >
               <div className="aspect-[16/10] overflow-hidden">
                 <CoverImage src={item.image} alt={item.alt} />
@@ -53,7 +54,7 @@ export function HomePaths() {
               </div>
             </Link>
           ))}
-        </div>
+        </HoverGrid>
       </div>
     </section>
   );

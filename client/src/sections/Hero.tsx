@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom';
 import { DashboardMockup } from '../components/DashboardMockup';
+import { DotBackground } from '../components/aceternity/DotBackground';
+import { HoverBorderGradient } from '../components/aceternity/HoverBorderGradient';
+import { BackgroundBeams } from '../components/aceternity/BackgroundBeams';
+import { GlowFrame } from '../components/aceternity/GlowFrame';
 
 export function Hero() {
   return (
-    <section id="inicio" className="border-b border-line">
-      <div className="page-wrap grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
+    <section id="inicio" className="relative overflow-hidden border-b border-line">
+      <DotBackground />
+      <BackgroundBeams />
+      <div className="page-wrap relative z-10 grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
         <div className="reveal">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand">Software empresarial</p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-ink md:text-5xl">
@@ -21,12 +27,7 @@ export function Hero() {
             >
               Solicitar una cotización
             </Link>
-            <Link
-              to="/soluciones"
-              className="inline-flex items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition-colors duration-ui hover:border-brand hover:text-brand"
-            >
-              Ver soluciones
-            </Link>
+            <HoverBorderGradient to="/soluciones">Ver soluciones</HoverBorderGradient>
           </div>
           <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-6">
             <div>
@@ -44,7 +45,9 @@ export function Hero() {
           </dl>
         </div>
         <div className="reveal reveal-delay-2">
-          <DashboardMockup />
+          <GlowFrame>
+            <DashboardMockup />
+          </GlowFrame>
         </div>
       </div>
     </section>
