@@ -105,7 +105,10 @@ export function AdminLayout() {
           </button>
         </div>
         <div className="page-stage overflow-x-hidden">
-          <div key={location.pathname} className="page-sheet p-5 lg:p-8" data-dir={direction}>
+          <div key={`${location.pathname}-progress`} className="route-progress-track" aria-hidden>
+            <div className="route-progress" />
+          </div>
+          <div key={`${location.pathname}-sheet`} className="page-sheet p-5 lg:p-8" data-dir={direction}>
             <Outlet />
           </div>
         </div>

@@ -25,9 +25,12 @@ export function PublicLayout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-surface">
+      <div key={`${location.pathname}-progress`} className="route-progress-track" aria-hidden>
+        <div className="route-progress" />
+      </div>
       <Navbar />
       <main className="page-stage flex-1 bg-surface">
-        <div key={location.pathname} className="page-sheet" data-dir={direction}>
+        <div key={`${location.pathname}-sheet`} className="page-sheet" data-dir={direction}>
           <Outlet />
         </div>
       </main>

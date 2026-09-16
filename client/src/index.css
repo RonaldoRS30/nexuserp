@@ -101,7 +101,7 @@ h4 {
 
 @keyframes page-in-right {
   from {
-    opacity: 0.72;
+    opacity: 0;
   }
   to {
     opacity: 1;
@@ -110,7 +110,7 @@ h4 {
 
 @keyframes page-in-left {
   from {
-    opacity: 0.72;
+    opacity: 0;
   }
   to {
     opacity: 1;
@@ -119,7 +119,7 @@ h4 {
 
 @keyframes page-in-up {
   from {
-    opacity: 0.72;
+    opacity: 0;
   }
   to {
     opacity: 1;
@@ -150,17 +150,17 @@ h4 {
 
 @keyframes route-progress {
   0% {
-    transform: scaleX(0.06);
+    transform: scaleX(0);
     transform-origin: left;
     opacity: 1;
   }
-  60% {
-    transform: scaleX(0.82);
+  35% {
+    transform: scaleX(0.45);
     transform-origin: left;
     opacity: 1;
   }
-  85% {
-    transform: scaleX(1);
+  70% {
+    transform: scaleX(0.88);
     transform-origin: left;
     opacity: 1;
   }
@@ -187,22 +187,37 @@ h4 {
 }
 
 .page-sheet {
-  animation: page-in-up 760ms var(--ease-spring) forwards;
+  /* Opacity-only: transforms on this wrapper break sticky (MacBook hero) */
+  animation: page-in-up 560ms var(--ease-out) both;
   transform: none;
 }
 
 .page-sheet[data-dir='fwd'] {
   animation-name: page-in-right;
+  animation-duration: 520ms;
 }
 
 .page-sheet[data-dir='back'] {
   animation-name: page-in-left;
+  animation-duration: 520ms;
+}
+
+.route-progress-track {
+  pointer-events: none;
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  overflow: hidden;
 }
 
 .route-progress {
-  background: linear-gradient(90deg, #c7d2fe, #4f46e5 40%, #6366f1);
-  box-shadow: 0 0 18px rgba(79, 70, 229, 0.65);
-  animation: route-progress 700ms var(--ease-spring) forwards;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #c7d2fe, #4f46e5 45%, #6366f1);
+  box-shadow: 0 0 14px rgba(79, 70, 229, 0.45);
+  animation: route-progress 640ms var(--ease-out) forwards;
 }
 
 .drawer-enter {
@@ -255,7 +270,11 @@ main section[id] {
   .page-sheet,
   .route-progress,
   .drawer-enter {
-    animation: fade-in 180ms ease both;
+    animation: fade-in 220ms ease both;
+  }
+
+  .route-progress-track {
+    display: none;
   }
 
   .section-reveal,
