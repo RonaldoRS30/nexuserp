@@ -55,8 +55,8 @@ export const MacbookScroll = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [viewportW, setViewportW] = useState(1024);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
+  const [viewportW, setViewportW] = useState(() => (typeof window !== "undefined" ? window.innerWidth : 1024));
 
   useEffect(() => {
     const sync = () => {
@@ -162,6 +162,10 @@ export const MacbookScroll = ({
   // Lid spacer + keyboard height (full device), scaled
   const layoutH = (isMobile ? 500 : 520) * machineScale;
   const titleOpen = textOpacity >= 0.05;
+
+  if (isMobile) {
+    return <div className="relative mx-auto w-full max-w-3xl px-5 pb-14 pt-10 text-center">{title}</div>;
+  }
 
   return (
     <div
