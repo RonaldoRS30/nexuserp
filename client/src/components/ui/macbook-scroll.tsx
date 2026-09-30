@@ -73,7 +73,7 @@ export const MacbookScroll = ({
     const el = ref.current;
     if (!el) return;
 
-    // Mouse wheels scroll in discrete steps; easing toward the target turns them into continuous motion
+    // Desktop mouse wheels scroll in discrete steps; easing toward the target turns them into continuous motion
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const SMOOTHING_SECONDS = reduceMotion ? 0.06 : 0.12;
 
@@ -104,6 +104,15 @@ export const MacbookScroll = ({
 
     const onScroll = () => {
       target = readTarget();
+      // On mobile the stage is in normal flow and its height follows progress, so any lag shifts the content below
+      if (window.innerWidth < 768) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        lastTime = 0;
+        current = target;
+        setProgress(current);
+        return;
+      }
       if (!frame) frame = requestAnimationFrame(tick);
     };
 
