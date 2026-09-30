@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import {
@@ -73,25 +73,52 @@ export const MacbookScroll = ({
     const el = ref.current;
     if (!el) return;
 
-    let ticking = false;
-    const update = () => {
+    // Mouse wheels scroll in discrete steps; easing toward the target turns them into continuous motion
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const SMOOTHING_SECONDS = reduceMotion ? 0.06 : 0.12;
+
+    const readTarget = () => {
       const rect = el.getBoundingClientRect();
-      const next = Math.min(1, Math.max(0, -rect.top / Math.max(rect.height, 1)));
-      setProgress(next);
-      ticking = false;
-    };
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
+      return Math.min(1, Math.max(0, -rect.top / Math.max(rect.height, 1)));
     };
 
-    update();
+    let target = readTarget();
+    let current = target;
+    let frame = 0;
+    let lastTime = 0;
+    setProgress(current);
+
+    const tick = (time: number) => {
+      const dt = lastTime ? Math.min((time - lastTime) / 1000, 0.1) : 1 / 60;
+      lastTime = time;
+      current += (target - current) * (1 - Math.exp(-dt / SMOOTHING_SECONDS));
+      if (Math.abs(target - current) < 0.0005) current = target;
+      setProgress(current);
+      if (current !== target) {
+        frame = requestAnimationFrame(tick);
+      } else {
+        frame = 0;
+        lastTime = 0;
+      }
+    };
+
+    const onScroll = () => {
+      target = readTarget();
+      if (!frame) frame = requestAnimationFrame(tick);
+    };
+
+    const onResize = () => {
+      target = readTarget();
+      current = target;
+      setProgress(current);
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
+      cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -190,39 +217,54 @@ export const MacbookScroll = ({
               contentScale={screenContentScale}
               compact={isMobile}
             />
-            <div
-              className={cn(
-                "relative -z-10 w-[32rem] overflow-hidden rounded-2xl bg-gray-200 dark:bg-[#272729]",
-                isMobile ? "h-[11rem]" : "h-[20rem]",
-              )}
-            >
-              <div className="relative h-10 w-full">
-                <div className="absolute inset-x-0 mx-auto h-4 w-[80%] bg-[#050505]" />
-              </div>
-              <div className="relative flex">
-                <div className="mx-auto h-full w-[10%] overflow-hidden">
-                  <SpeakerGrid />
-                </div>
-                <div className="mx-auto h-full w-[80%]">
-                  <Keypad />
-                </div>
-                <div className="mx-auto h-full w-[10%] overflow-hidden">
-                  <SpeakerGrid />
-                </div>
-              </div>
-              {!isMobile && <Trackpad />}
-              <div className="absolute inset-x-0 bottom-0 mx-auto h-2 w-20 rounded-tl-3xl rounded-tr-3xl bg-gradient-to-t from-[#272729] to-[#050505]" />
-              {showGradient && (
-                <div className="absolute inset-x-0 bottom-0 z-50 h-40 w-full bg-gradient-to-t from-white via-white to-transparent dark:from-black dark:via-black" />
-              )}
-              {badge && <div className="absolute bottom-4 left-4">{badge}</div>}
-            </div>
+            <KeyboardBase compact={isMobile} showGradient={showGradient} badge={badge} />
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+// Memoized: the progress state updates every frame while easing; the keyboard never changes with it
+const KeyboardBase = React.memo(function KeyboardBase({
+  compact,
+  showGradient,
+  badge,
+}: {
+  compact: boolean;
+  showGradient?: boolean;
+  badge?: React.ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative -z-10 w-[32rem] overflow-hidden rounded-2xl bg-gray-200 dark:bg-[#272729]",
+        compact ? "h-[11rem]" : "h-[20rem]",
+      )}
+    >
+      <div className="relative h-10 w-full">
+        <div className="absolute inset-x-0 mx-auto h-4 w-[80%] bg-[#050505]" />
+      </div>
+      <div className="relative flex">
+        <div className="mx-auto h-full w-[10%] overflow-hidden">
+          <SpeakerGrid />
+        </div>
+        <div className="mx-auto h-full w-[80%]">
+          <Keypad />
+        </div>
+        <div className="mx-auto h-full w-[10%] overflow-hidden">
+          <SpeakerGrid />
+        </div>
+      </div>
+      {!compact && <Trackpad />}
+      <div className="absolute inset-x-0 bottom-0 mx-auto h-2 w-20 rounded-tl-3xl rounded-tr-3xl bg-gradient-to-t from-[#272729] to-[#050505]" />
+      {showGradient && (
+        <div className="absolute inset-x-0 bottom-0 z-50 h-40 w-full bg-gradient-to-t from-white via-white to-transparent dark:from-black dark:via-black" />
+      )}
+      {badge && <div className="absolute bottom-4 left-4">{badge}</div>}
+    </div>
+  );
+});
 
 export const Lid = ({
   scaleX,
@@ -246,6 +288,13 @@ export const Lid = ({
   // Mobile uses a taller in-flow spacer so the absolute screen doesn't sit under the CTAs
   const baseH = compact ? "h-80" : "h-[12rem]";
   const screenH = compact ? "h-[22rem]" : "h-96";
+  const screenNode = useMemo(
+    () =>
+      React.isValidElement(screen)
+        ? React.cloneElement(screen as React.ReactElement<{ compact?: boolean }>, { compact })
+        : screen,
+    [screen, compact],
+  );
 
   return (
     <div className="relative [perspective:800px]">
@@ -285,12 +334,7 @@ export const Lid = ({
                 transform: `scale(${contentScale})`,
               }}
             >
-              {React.isValidElement(screen)
-                ? React.cloneElement(
-                    screen as React.ReactElement<{ compact?: boolean }>,
-                    { compact },
-                  )
-                : screen}
+              {screenNode}
             </div>
           ) : src ? (
             <img
