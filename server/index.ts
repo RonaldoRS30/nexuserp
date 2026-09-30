@@ -15,7 +15,14 @@ const clientDist = path.resolve(__dirname, '../client/dist');
 app.set('trust proxy', 1);
 app.use(
   helmet({
-    contentSecurityPolicy: env.shareMode ? false : undefined,
+    contentSecurityPolicy: env.shareMode
+      ? false
+      : {
+          directives: {
+            // Over plain HTTP this directive makes browsers request assets via https and fail
+            upgradeInsecureRequests: env.frontendUrl.startsWith('https://') ? [] : null,
+          },
+        },
     crossOriginResourcePolicy: { policy: 'cross-origin' },
   }),
 );
