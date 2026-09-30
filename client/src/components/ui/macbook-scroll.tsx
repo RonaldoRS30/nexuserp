@@ -153,7 +153,9 @@ export const MacbookScroll = ({
   );
   const zoomT = mapProgress(progress, 0.04, isMobile ? 0.35 : 0.36);
   const scrollZoom = lerp(1, isMobile ? 1.18 : 1.2, zoomT);
-  const machineScale = fitScale * (isMobile ? Math.min(scrollZoom, 1.12) : Math.min(scrollZoom, 1.2));
+  const machineScale = isMobile
+    ? Math.min(fitScale * Math.min(scrollZoom, 1.12), (viewportW - 16) / frameW)
+    : fitScale * Math.min(scrollZoom, 1.2);
   // Dashboard image larger again (like before); sticky top keeps the full laptop under the nav
   const screenContentScale = lerp(isMobile ? 0.92 : 0.72, isMobile ? 1.05 : 0.86, zoomT);
 
@@ -296,7 +298,7 @@ export const Lid = ({
 }) => {
   // Mobile uses a taller in-flow spacer so the absolute screen doesn't sit under the CTAs
   const baseH = compact ? "h-80" : "h-[12rem]";
-  const screenH = compact ? "h-[22rem]" : "h-96";
+  const screenH = compact ? "h-80" : "h-96";
   const screenNode = useMemo(
     () =>
       React.isValidElement(screen)
@@ -309,9 +311,8 @@ export const Lid = ({
     <div className="relative [perspective:800px]">
       <div
         style={{
-          transform: compact
-            ? "perspective(800px) rotateX(-8deg) translateZ(0px)"
-            : "perspective(800px) rotateX(-25deg) translateZ(0px)",
+          // A tilted back panel widens past narrow viewports through perspective
+          transform: compact ? "none" : "perspective(800px) rotateX(-25deg) translateZ(0px)",
           transformOrigin: "bottom",
           transformStyle: "preserve-3d",
         }}
