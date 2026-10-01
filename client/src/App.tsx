@@ -1,24 +1,30 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect, type ComponentType } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { PublicLayout } from './layouts/PublicLayout';
 import { HomePage } from './pages/HomePage';
-import { ServiciosPage } from './pages/ServiciosPage';
-import { SolucionesPage } from './pages/SolucionesPage';
-import { PublicPlansPage } from './pages/PublicPlansPage';
-import { NosotrosPage } from './pages/NosotrosPage';
-import { ProcesoPage } from './pages/ProcesoPage';
-import { ContactoPage } from './pages/ContactoPage';
-import { PrivacyPage } from './pages/PrivacyPage';
-import { TermsPage } from './pages/TermsPage';
-import { LoginPage } from './pages/admin/LoginPage';
-import { DashboardPage } from './pages/admin/DashboardPage';
-import { PlansPage } from './pages/admin/PlansPage';
-import { PlanFormPage } from './pages/admin/PlanFormPage';
-import { ModulesPage } from './pages/admin/ModulesPage';
-import { ContactsPage } from './pages/admin/ContactsPage';
-import { ContactDetailPage } from './pages/admin/ContactDetailPage';
-import { SettingsPage } from './pages/admin/SettingsPage';
 import { AdminIndexRedirect, ProtectedAdmin } from './components/admin/ProtectedAdmin';
+import { serviceLandingLinks } from './data/serviceLandings';
+
+function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType<any>>>, name: K) {
+  return lazy(() => load().then((module) => ({ default: module[name] })));
+}
+
+const ServiciosPage = lazyPage(() => import('./pages/ServiciosPage'), 'ServiciosPage');
+const SolucionesPage = lazyPage(() => import('./pages/SolucionesPage'), 'SolucionesPage');
+const PublicPlansPage = lazyPage(() => import('./pages/PublicPlansPage'), 'PublicPlansPage');
+const ContactoPage = lazyPage(() => import('./pages/ContactoPage'), 'ContactoPage');
+const PrivacyPage = lazyPage(() => import('./pages/PrivacyPage'), 'PrivacyPage');
+const TermsPage = lazyPage(() => import('./pages/TermsPage'), 'TermsPage');
+const ServiceLandingPage = lazyPage(() => import('./pages/ServiceLandingPage'), 'ServiceLandingPage');
+const NotFoundPage = lazyPage(() => import('./pages/NotFoundPage'), 'NotFoundPage');
+const LoginPage = lazyPage(() => import('./pages/admin/LoginPage'), 'LoginPage');
+const DashboardPage = lazyPage(() => import('./pages/admin/DashboardPage'), 'DashboardPage');
+const PlansPage = lazyPage(() => import('./pages/admin/PlansPage'), 'PlansPage');
+const PlanFormPage = lazyPage(() => import('./pages/admin/PlanFormPage'), 'PlanFormPage');
+const ModulesPage = lazyPage(() => import('./pages/admin/ModulesPage'), 'ModulesPage');
+const ContactsPage = lazyPage(() => import('./pages/admin/ContactsPage'), 'ContactsPage');
+const ContactDetailPage = lazyPage(() => import('./pages/admin/ContactDetailPage'), 'ContactDetailPage');
+const SettingsPage = lazyPage(() => import('./pages/admin/SettingsPage'), 'SettingsPage');
 
 const HASH_REDIRECTS: Record<string, string> = {
   '#inicio': '/',
@@ -55,17 +61,22 @@ export default function App() {
     <BrowserRouter>
       <LegacyHashRedirect />
       <ScrollManager />
+      <Suspense fallback={null}>
       <Routes>
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<HomePage />} />
           <Route path="servicios" element={<ServiciosPage />} />
           <Route path="soluciones" element={<SolucionesPage />} />
           <Route path="planes" element={<PublicPlansPage />} />
-          <Route path="nosotros" element={<NosotrosPage />} />
-          <Route path="proceso" element={<ProcesoPage />} />
+          <Route path="nosotros" element={<Navigate to="/" replace />} />
+          <Route path="proceso" element={<Navigate to="/" replace />} />
           <Route path="contacto" element={<ContactoPage />} />
           <Route path="privacidad" element={<PrivacyPage />} />
           <Route path="terminos" element={<TermsPage />} />
+          {serviceLandingLinks.map((link) => (
+            <Route key={link.to} path={link.to.slice(1)} element={<ServiceLandingPage path={link.to} />} />
+          ))}
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="/admin" element={<AdminIndexRedirect />}>
           <Route index element={<LoginPage />} />
@@ -81,6 +92,7 @@ export default function App() {
           <Route path="/admin/configuracion" element={<SettingsPage />} />
         </Route>
       </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

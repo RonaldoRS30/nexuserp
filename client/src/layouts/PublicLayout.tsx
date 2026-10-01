@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -31,7 +31,9 @@ export function PublicLayout() {
       <Navbar />
       <main className="page-stage flex-1 bg-surface">
         <div key={`${location.pathname}-sheet`} className="page-sheet" data-dir={direction}>
-          <Outlet />
+          <Suspense fallback={<div className="min-h-[70vh]" />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
       <Footer />

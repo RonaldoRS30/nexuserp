@@ -1,3 +1,5 @@
+import { pageSeo } from '../seo/pages';
+
 export const config = {
   apiUrl: import.meta.env.VITE_API_URL || '/api',
   companyName: import.meta.env.VITE_COMPANY_NAME || 'NexusERP',
@@ -7,9 +9,8 @@ export const config = {
   whatsappNumber: (import.meta.env.VITE_WHATSAPP_NUMBER || '').replace(/\D/g, ''),
   siteUrl: import.meta.env.VITE_SITE_URL || 'http://localhost:5173',
   seo: {
-    title: 'NexusERP | Sistemas de Facturación y Software a Medida',
-    description:
-      'Desarrollamos sistemas de facturación, plataformas web y soluciones de software a medida para empresas.',
+    title: pageSeo['/'].title,
+    description: pageSeo['/'].description,
   },
 };
 

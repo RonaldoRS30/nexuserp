@@ -3,13 +3,14 @@ import { Logo } from './Logo';
 import { config, footerLinks } from '../config';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import { SocialLinks } from './SocialLinks';
+import { serviceLandingLinks } from '../data/serviceLandings';
 
 export function Footer() {
   const { settings } = useSiteSettings();
 
   return (
     <footer className="mt-auto border-t border-white/10 bg-primary-dark text-white">
-      <div className="page-wrap grid gap-10 py-16 md:grid-cols-3">
+      <div className="page-wrap grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="inline-flex rounded-lg bg-white px-3 py-2">
             <Logo className="[&_img]:h-16" />
@@ -26,6 +27,18 @@ export function Footer() {
           <p className="text-sm font-semibold">Navegación</p>
           <ul className="mt-4 space-y-2.5 text-sm text-neutral-400">
             {footerLinks.map((link) => (
+              <li key={link.to}>
+                <Link to={link.to} className="transition-colors duration-ui hover:text-white">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="text-sm font-semibold">Sistemas</p>
+          <ul className="mt-4 space-y-2.5 text-sm text-neutral-400">
+            {serviceLandingLinks.map((link) => (
               <li key={link.to}>
                 <Link to={link.to} className="transition-colors duration-ui hover:text-white">
                   {link.label}
